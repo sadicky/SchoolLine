@@ -48,6 +48,24 @@ require_once("connexion.php");
         }
         return $tb;
         }
+        
+        public function getCoursClasse($id){
+            $db = getconnection();
+            $all = $db->prepare("SELECT cours.IDCO as ID,cours.COURS as COURS
+               from cours,classe,section,options,asco
+               where cours.IDCLA = classe.IDCLA
+               AND classe.IDOPT=options.IDOPT
+              AND options.IDSECT = section.IDSECT
+               and cours.IDAA=asco.ID 
+               And classe.IDCLA=?");
+            $all->execute(array($id));
+            $tb = array();
+            while($data = $all->fetchObject())
+            {
+                $tb[] = $data;
+            }
+            return $tb;
+            }
   
   
         public function getCoursId($id)
@@ -78,5 +96,3 @@ require_once("connexion.php");
        //  return $ok;
        // }
     }
-
-?>

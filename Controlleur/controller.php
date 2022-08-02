@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use Twilio\Rest\Trusthub\V1\CustomerProfilesPage;
+
 	function login(){
 	session_destroy();
 	include('model/functions.php');
@@ -16,33 +19,40 @@ function home(){
 	$getOpt= new Opt();
 	$getFs= new FS();
 	$getSect = new Section();
-	$getEleve = new Eleve();	
+	$getEleve = new Eleve();
+	$getE = $getEleve->getEleves();	
+
+	$getEleve = new Eleve();
+	$getEA = $getEleve->getElevesAdmis();	
 
 	$getO = $getOpt->getOptionActiv();	
 	$getS = $getSect->getSectionActiv();
 	$getC = $getCla->getClasses();
 	$getF = $getFs->getsFS();
 	$getAa = $getAa->getAllAA();
-	$getE = $getEleve->getEleves();	
 	include('vue/home.php');
 }
 	function accueilAdmin(){
 		require_once('Model/aa.class.php');
 		require_once('Model/prof.class.php');
-		require_once('Model/faculte.class.php');
+		require_once('Model/section.class.php');
 		require_once('Model/bib.class.php');
-		require_once('Model/departement.class.php');
-		$getd= new Departement();
-		$getd = $getd->getDep();
+		require_once('Model/option.class.php');
+		require_once('Model/eleve.class.php');
+		$getd= new OPT();
+		$getd = $getd->getOptionActiv();
 
 		$getB= new Bibliotheque();
 		$getB = $getB->getBib();
+		
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 
 		$geta= new AA();
 		$getP= new Prof();
 		$getAa = $geta->getAllAA();	
 		$getP = $getP->getProfs();	
-		$faculte = new Faculte();		
+		$faculte = new Section();		
 	include('vue/accueil.php');
 }
 function licence(){
@@ -94,20 +104,37 @@ function Cantine(){
 	include('model/functions.php');
 	include('vue/accueilChefClasse.php');
 }
-	function modAdmin(){
-	session_destroy();
-	require_once('Model/admin.class.php');
-	$admin = new Admin();
-	$id=isset($_GET['id'])?$_GET['id']:'';
-	$data = $admin->getAdId($id);
-	include('vue/modadmin.php');
-}
 
 	function affAdmin(){
-	session_destroy();
 	require_once('Model/admin.class.php');
+	require_once('Model/fs.class.php');
+	require_once('Model/section.class.php');
+	require_once('Model/option.class.php');
+	require_once('Model/aa.class.php');
+	require_once('Model/classe.class.php');
+	require_once('Model/eleve.class.php');
+	require_once('Model/prof.class.php');
+	$getAa= new AA();
+	$getCla= new Classe();
+	$getOpt= new Opt();
+	$getFs= new FS();
+	$getSect = new Section();
+	$getEleve = new Eleve();
+	$getP = new Prof();	
+	
+	$getEleve = new Eleve();
+	$getEA = $getEleve->getElevesAdmis();
+
+	$getO = $getOpt->getOptionActiv();	
+	$getS = $getSect->getSectionActiv();
+	$getC = $getCla->getClasses();
+	$getF = $getFs->getsFS();
+	$getAa = $getAa->getAllAA();
+	$getE = $getEleve->getEleves();
+	$getP = $getP->getProfsActif();
 	$admin = new Admin();
-	include('vue/affadmin.php');
+	$getAd = $admin->getAllAdmin();
+	include('Vue/affadmin.php');
 }
 
 	function affEleve(){
@@ -123,6 +150,9 @@ function Cantine(){
 		$getFs= new FS();
 		$getSect = new Section();
 		$getEleve = new Eleve();	
+		
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 
 		$getO = $getOpt->getOptionActiv();	
 		$getS = $getSect->getSectionActiv();
@@ -150,6 +180,7 @@ function Cantine(){
 		require_once('Model/option.class.php');
 		require_once('Model/classe.class.php');
 		require_once('Model/cours.class.php');
+		require_once('Model/eleve.class.php');
 		$getS= new Section();
 		$getO= new Opt();
 		$getP= new Prof();
@@ -157,6 +188,8 @@ function Cantine(){
 		$getCo = new Cours();		
 		$getAa= new AA();
 
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 		$getO = $getO->getOptions();	
 		$getPa = $getP->getProfsActif();
 		$getS = $getS->getSection();
@@ -174,7 +207,7 @@ function Cantine(){
 	}
 	
 	function affbibliotheq(){
-		
+		require_once('Model/eleve.class.php');		
 		require_once('Model/fs.class.php');
 		require_once('Model/section.class.php');
 		require_once('Model/option.class.php');
@@ -190,6 +223,8 @@ function Cantine(){
 		$getP= new Prof();
 		$getBi= new Bibliotheque();
 
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 		
 		$getAa = $getAa->getAllAA();
 		$getP = $getP->getProfs();
@@ -209,6 +244,7 @@ function Cantine(){
 		require_once('Model/aa.class.php');
 		require_once('Model/classe.class.php');
 		require_once('Model/prof.class.php');
+		require_once('Model/eleve.class.php');
 		$getAa= new AA();
 		$getC= new Classe();
 		$getO= new Opt();
@@ -216,6 +252,8 @@ function Cantine(){
 		$getS = new Section();
 		$getP= new Prof();
 
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 		
 		$getAa = $getAa->getAllAA();
 		$getP = $getP->getProfs();
@@ -233,18 +271,21 @@ function Cantine(){
 		require_once('Model/option.class.php');
 		require_once('Model/classe.class.php');
 		require_once('Model/cours.class.php');
+		require_once('Model/eleve.class.php');
 		$getS= new Section();
 		$getO= new Opt();
 		$getP= new Prof();
 		$getC = new Classe();	
 		$getCo = new Cours();		
-		$getAa= new AA();
+		$getAa= new AA();	
+		$getEleve= new Eleve();
 
 		$getO = $getO->getOptions();	
 		$getP = $getP->getProfsActif();
 		$getS = $getS->getSection();
 		$getC = $getC->getClasse();	
 		$getCo = $getCo->getsCours();
+		$getEA = $getEleve->getElevesAdmis();
 		$getAa = $getAa->getAllAA();
 		include('vue/cours.php');
 	}
@@ -252,12 +293,16 @@ function Cantine(){
 		require_once('Model/section.class.php');
 		require_once('Model/prof.class.php');
 		require_once('Model/option.class.php');
+		require_once('Model/eleve.class.php');
 		require_once('Model/classe.class.php');
 		
 		$getS = new Section();
 		$getO= new Opt();
 		$getP= new Prof();
-		$getC = new Classe();	
+		$getC = new Classe();
+
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 		
 		$getO = $getO->getOptions();
 		$getC = $getC->getClasse();	
@@ -272,6 +317,7 @@ function Cantine(){
 		require_once('Model/option.class.php');
 		require_once('Model/classe.class.php');
 		require_once('Model/cours.class.php');
+		require_once('Model/eleve.class.php');
 		require_once('Model/af.class.php');
 		$getS= new Section();
 		$getO= new Opt();
@@ -280,6 +326,8 @@ function Cantine(){
 		$getCo = new Cours();		
 		$getAa= new AA();
 		$frais = new AutresF();
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 
 		$getO = $getO->getOptions();	
 		$getP = $getP->getProfsActif();
@@ -291,8 +339,34 @@ function Cantine(){
 		include('vue/motifp.php');
 	}
 	function jConge(){
-		session_destroy();
-		include('model/functions.php');
+		require_once('Model/prof.class.php');
+		require_once('Model/aa.class.php');
+		require_once('Model/section.class.php');
+		require_once('Model/option.class.php');
+		require_once('Model/classe.class.php');
+		require_once('Model/cours.class.php');
+		require_once('Model/eleve.class.php');
+		require_once('Model/af.class.php');
+		require_once('Model/jc.class.php');
+		$getS= new Section();
+		$getO= new Opt();
+		$getP= new Prof();
+		$getC = new Classe();	
+		$getCo = new Cours();		
+		$getAa= new AA();
+		$frais = new AutresF();
+		$jc = new JC();
+		$Jco = $jc->getJC();
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
+
+		$getO = $getO->getOptions();	
+		$getP = $getP->getProfsActif();
+		$getS = $getS->getSection();
+		$getC = $getC->getClasse();	
+		$getCo = $getCo->getsCours();
+		$getAa = $getAa->getAllAA();
+		$getAF= $frais->getAF();	
 		include('vue/joursconges.php');
 	}
 
@@ -300,7 +374,8 @@ function Cantine(){
 		session_destroy();
 		session_destroy();
 		require_once('Model/aa.class.php');
-
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 		$getAa= new AA();
 		$getAa = $getAa->getAllAA();
 		include('vue/sorties.php');
@@ -311,9 +386,14 @@ function Cantine(){
 		require_once('Model/prof.class.php');
 		require_once('Model/option.class.php');
 		require_once('Model/classe.class.php');
+		require_once('Model/eleve.class.php');
 		$getD= new Opt();
 		$getP= new Prof();
 		$getC = new Classe();	
+		
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
+
 		$getP = $getP->getProfs();
 		$getC = $getC->getClasse();	
 		$getD = $getD->getOptions();
@@ -336,10 +416,14 @@ function Cantine(){
 		require_once('Model/section.class.php');		
 		require_once('Model/classe.class.php');		
 		require_once('Model/prof.class.php');
+		require_once('Model/eleve.class.php');
 		$getP= new Prof();
 		$getP = $getP->getProfsActif();
 		$getC= new Classe();
 		$getC = $getC->getClasses();
+		
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 
 		$getO= new Section();
 		$getO = $getO->getSectionActiv();
@@ -349,41 +433,44 @@ function Cantine(){
 		require_once('Model/section.class.php');		
 		require_once('Model/classe.class.php');		
 		require_once('Model/prof.class.php');
+		require_once('Model/eleve.class.php');
 		$getP= new Prof();
 		$getP = $getP->getProfsActif();
 		$getC= new Classe();
 		$getC = $getC->getClasse();
 
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 		$section = new Section();	
 		$getSect = $section->getSection();			
 		include('vue/section.php');
 	}
 	function pfa(){
 		session_destroy();
-		require_once('Model/fa.class.php');
-		require_once('Model/faculte.class.php');
-		require_once('Model/departement.class.php');
+		require_once('Model/fs.class.php');
+		require_once('Model/classe.class.php');
+		require_once('Model/option.class.php');
 		require_once('Model/aa.class.php');
-		require_once('Model/niveau.class.php');
+		require_once('Model/section.class.php');
+		require_once('Model/eleve.class.php');
 		$getAa= new AA();
-		$getN= new Niveau();
-		$getD= new Departement();
-		$getF = new Faculte();	
+		$getN= new Classe();
+		$getD= new OPT();
+		$getF = new Section();	
+		
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 
-		$getD = $getD->getDep();
-		$getF = $getF->getFac();
-		$getN = $getN->getNiv();
+		$getD = $getD->getOptionActiv();
+		$getF = $getF->getSectionActiv();
+		$getN = $getN->getClasses();
 		$getAa = $getAa->getAllAA();	
 		include('vue/pfa.php');
 	}
 	function payer(){
-		session_destroy();
-		include('model/functions.php');
 		include('vue/payer.php');
 	}
 	function recu(){
-		session_destroy();
-		include('model/functions.php');
 		include('Public/invoice/recu.php');
 	}
 	function fiche(){
@@ -391,8 +478,7 @@ function Cantine(){
 		include('model/functions.php');
 		include('Public/invoice/print.php');
 	}
-	function bibliotheque(){
-		
+	function bibliotheque(){		
 		require_once('Model/fs.class.php');
 		require_once('Model/section.class.php');
 		require_once('Model/option.class.php');
@@ -400,6 +486,7 @@ function Cantine(){
 		require_once('Model/classe.class.php');
 		require_once('Model/prof.class.php');
 		require_once('Model/bib.class.php');
+		require_once('Model/eleve.class.php');
 		$getAa= new AA();
 		$getC= new Classe();
 		$getO= new Opt();
@@ -409,6 +496,9 @@ function Cantine(){
 		$getBi= new Bibliotheque();
 
 		
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
+
 		$getAa = $getAa->getAllAA();
 		$getP = $getP->getProfs();
 		$getO = $getO->getOptionActiv();	
@@ -468,11 +558,14 @@ function Cantine(){
 		require_once('Model/departement.class.php');
 		require_once('Model/aa.class.php');
 		require_once('Model/niveau.class.php');
+		require_once('Model/eleve.class.php');
 		$getAa= new AA();
 		$getN= new Niveau();
 		$getD= new Departement();
 		$getFa= new FA();
 		$getF = new Faculte();	
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
 
 		$getD = $getD->getDep();	
 		$getFa = $getFa->getFA();
@@ -484,7 +577,8 @@ function Cantine(){
 	
 	function profdet(){
 		require_once('Model/section.class.php');		
-		require_once('Model/classe.class.php');		
+		require_once('Model/classe.class.php');
+		require_once('Model/eleve.class.php');		
 		require_once('Model/prof.class.php');
 		$getProf= new Prof();
 		$id=$_GET['id'];
@@ -492,11 +586,37 @@ function Cantine(){
 		$getC= new Classe();
 		$getC = $getC->getClasses();
 
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();	
+
 		$getO= new Section();
 		$getPi = $getProf->getProfId($id);
 		$getPc = $getProf->getProfCoursId($id);
 		$getO = $getO->getSectionActiv();	
 		include('vue/profdet.php');
+	}
+	
+	function elevedet(){
+		require_once('Model/section.class.php');		
+		require_once('Model/classe.class.php');
+		require_once('Model/eleve.class.php');		
+		require_once('Model/prof.class.php');
+		$getProf= new Prof();
+		$id=$_GET['id'];
+		$getP = $getProf->getProfsActif();
+		$getC= new Classe();
+		$getC = $getC->getClasses();
+
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
+		$getInsc = $getEleve->getEleveIns($id);		
+		$getE = $getEleve->getEleveId($id);	
+
+		$getO= new Section();
+			$getPi = $getProf->getProfId($id);
+			$getPc = $getProf->getProfCoursId($id);
+			$getO = $getO->getSectionActiv();
+		include('vue/elevedet.php');
 	}
 
 

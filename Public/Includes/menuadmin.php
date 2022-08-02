@@ -28,7 +28,8 @@
         <ul class="dropdown-menu">  
           <li><a href="index.php?page=codmodpoint">Code ModPoints</a></li>  
           <li><a href="index.php?page=resadmission">Admissions</a></li>  
-          <li><a href="index.php?page=notes">Notes</a></li>  
+          <li><a href="index.php?page=notes">Notes Interros</a></li>   
+          <li><a href="index.php?page=notes">Notes Examens</a></li>  
           <li><a href="index.php?page=resultats">Resultats</a></li>  
         </ul>  
       </li>    
@@ -41,7 +42,8 @@
           <li><a href="index.php?page=rapportso">Rapport Sortie de Caisse</a></li>   
         </ul>  
       </li>     
-      <li><a href="index.php?page=bibliotheque">Bibliothèque</a> </li>       
+      <li><a href="index.php?page=bibliotheque">Bibliothèque</a> </li>  
+      <li><a href="index.php?page=horaires">Horaires</a> </li>       
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestion<span class="caret"></span></a>  
         <ul class="dropdown-menu">  
           <li><a href="index.php?page=absence">Absence</a></li>  

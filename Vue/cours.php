@@ -14,7 +14,7 @@ include 'public/includes/header.php'; ?>
 						<div class='col-sm-12' id="message"></div>
 					</div>
 					<div class="table-responsive">
-						<table class="table table-condensed table-bordered table-striped no-wrap" id="dataTables-example" style="margin-top:10px">
+						<table class="table table-condensed table-bordered table-striped no-wrap" id="example" style="margin-top:10px">
 							<thead>
 								<tr>
 									<th>#</th>

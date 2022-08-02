@@ -1,20 +1,10 @@
-<?php 
-$title ='SchoolLine - Reçu';
-    include 'public/includes/header.php';
-?>
-    <body > 
-		<div class="row" style="padding-top: 60px;margin: 8px;"> 
-			<?php include 'public/includes/menucaissier.php';?>  
-			  <div class="col-sm-2">
-			  	  <ul class="list-group">
-					  <li class="list-group-item"><span class="badge">12</span> Etudiants Admis</li>
-					  <li class="list-group-item"><span class="badge">5</span> Garçons</li>
-					  <li class="list-group-item"><span class="badge">3</span> Filles</li>
-					  <li class="list-group-item"><span class="badge">12</span> Classes</li>
-					  <li class="list-group-item"><span class="badge">5</span> Profs</li>                     
-					  <li class="list-group-item"> <a href='index.php?page=print' class='btn btn-primary btn-block btn-sm'>Imprimer Reçu</a></li>
-				 </ul>
-			  </div>
+<?php $title = "Reçu";
+include 'public/includes/header.php'; ?>
+
+<body>
+	<div class="row" style="padding-top: 60px;margin: 8px;">
+		<?php include 'public/includes/menuadmin.php';
+		include 'public/includes/liste.php'; ?>
 			  <div class="col-sm-10">		  
 				    <div class="form-group">
 				      <div class="col-sm-12">
@@ -27,12 +17,12 @@ $title ='SchoolLine - Reçu';
                                     <img src="Public/Images/logo.jpg" class='img-circle' alt="logo" width='150px'>
                                 </td>
                                 <td width="50%" align='center'>
-                                <h3>République du Burundi</h3>
+                                <h3>République Démocratique du Congo</h3>
                                 Ministère de l'Enseignement Primaire,Sécondaire et Universitaire<br />
-                                Ville de Bujumbura,Bujumbura-Mairie,KIGOBE<br />
-                                <b>Univeristé SchoolLine de Bujumbura</b><br />
-                                <b>Contact</b> : +257 76 51 2005,+257 62 40 40 65; <b>Email</b>: <a href="mailto:spaceline1@gmail.com">spaceline1@gmail.com</a><br />
-                                <b>Site Web</b> : <a href="http://spaceline1.com">http://spaceline1.com</a>
+                                Ville d'Uvira,Sud-Kivu,Q.Songo
+                                <h3>Institut Mwanga d'Uvira</h3>
+                                <b>Contact</b> : +257 76 51 2005,+257 62 40 40 65; <b>Email</b>: <a href="mailto:imu@gmail.com">imu@gmail.com</a><br />
+                                <b>Site Web</b> : <a href="http://imu.com">https://imu.com</a>  <b>BP</b> : <a href="#">18</a>
                                 </td>
                                 <td width="20%">
                                 

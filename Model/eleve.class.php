@@ -25,15 +25,56 @@ Class Eleve
         $addline = $add->execute(array($mat,$nom,$prenom,$email,$sexe,$tel,$dob,$eco,$access,$dateind,$niv,$aa)) or die(print_r($add->errorInfo()));
         return $addline;
     }
+    //eleve inscrit
+    public function setEleveIns($montant,$eleve,$dateins)
+    {   
+        $db = getConnection();
+        $add = $db->prepare("INSERT INTO eleveinsc(MONTANT,IDEL,DATEINS) VALUES (?,?,?)");
+        $addline = $add->execute(array($montant,$eleve,$dateins)) or die(print_r($add->errorInfo()));
+        return $addline;
+    }
+    public function eleveInsUpdate($access,$id)
+    {
+        $db = getConnection();
+        $update = $db->prepare("UPDATE eleve SET ACCESS=?  WHERE ID =?");
+        $ok = $update->execute(array($access,$id)) or die(print_r($update->errorInfo()));
+        return $ok;
+    }
+    public function getEleveIns($id)
+    {
+        $db = getConnection();
+        $matP = $db->prepare("SELECT eleve.ID as ID, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
+        classe.CLASSE,options.OPT,section.SECTION,asco.AS,eleve.TEL as TEL,eleve.DOB as DOB, eleveinsc.DATEINS as DATEINS,eleveinsc.MONTANT as MONTANT
+         FROM eleve,asco,classe,options,section,eleveinsc
+        WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
+        AND options.IDSECT=section.IDSECT and eleve.ID=eleveinsc.IDEL AND eleve.ID=? LIMIT 1");
+        $matP->execute(array($id));
+        $res = $matP->fetchObject();
+        return $res;
+    }
 
     //afficher prof
     public function getEleves()
     {
         $db = getConnection();
-        $statement = $db->prepare("SELECT eleve.ID, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
+        $statement = $db->prepare("SELECT eleve.ID as ID, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
         classe.CLASSE,options.OPT,section.SECTION,asco.AS FROM eleve,asco,classe,options,section
         WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
         AND options.IDSECT=section.IDSECT");
+        $statement->execute();
+        $tbP = array();
+        while($data =  $statement->fetchObject()){
+            $tbP[] = $data;
+        }
+         return $tbP;
+    }
+    public function getElevesAdmis()
+    {
+        $db = getConnection();
+        $statement = $db->prepare("SELECT eleve.ID as ID, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
+        classe.CLASSE,options.OPT,section.SECTION,asco.AS FROM eleve,asco,classe,options,section
+        WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
+        AND options.IDSECT=section.IDSECT and eleve.ACCESS='1'");
         $statement->execute();
         $tbP = array();
         while($data =  $statement->fetchObject()){
@@ -45,9 +86,10 @@ Class Eleve
     public function getEleveId($id)
     {
         $db = getConnection();
-        $matP = $db->prepare("SELECT * FROM eleve,asco,classe,options,section
+        $matP = $db->prepare("SELECT eleve.ID as ID,classe.IDCLA as IDCLA, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
+        classe.CLASSE,options.OPT,section.SECTION,asco.AS,eleve.TEL as TEL,eleve.DOB as DOB FROM eleve,asco,classe,options,section
         WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
-        AND options.IDSECT=section.IDSECT AND eleve.ID=? LIMIT 1");
+        AND options.IDSECT=section.IDSECT AND eleve.MATRICULE=? LIMIT 1");
         $matP->execute(array($id));
         $res = $matP->fetchObject();
         return $res;
@@ -60,13 +102,6 @@ Class Eleve
         return $ok;
     }
 	
-    public function updateProf($login,$pwd,$prenom,$nom,$fonction,$sexe,$tel,$photo,$access,$idprof)
-    {
-        $db = getConnection();
-        $update = $db->prepare("UPDATE Admin SET LOGIN=?,PWD=?,PRENOM=?,NOM=?,FX=?,SEXE=?,TEL=?,PHOTO=?,ACCESS=?  WHERE ID =?");
-        $ok = $update->execute(array($login,$pwd,$prenom,$nom,$fonction,$sexe,$tel,$photo,$access,$idadmin)) or die(print_r($update->errorInfo()));
-        return $ok;
-    }
      public function activProf($idprof){
          $db = getConnection();
          $sql =$db->prepare( "UPDATE prof SET ACCESS='1' where ID=?");

@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  getJC();
   $("#formulaire").submit(function (event) {
     event.preventDefault();
     let datedeb = $("#datedeb").val();
@@ -17,20 +16,44 @@ $(document).ready(function () {
           .slideDown();
          $("#formulaire")[0].reset();
         $("#Ajouter").modal("hide");
-        getJC();
+        setInterval(refreshPage, 1000);
       }
     );
     return false;
   });
 
-  function getJC() {
-    $.post("public/script/affjc.php", function (data) {
-      $("#jc").html(data);
+  $('.view_jc').click(function(event) {
+    event.preventDefault();
+    var id = $(this).attr("id");
+    $.ajax({
+      url: "Public/script/viewjcbeforeup.php",
+      method: "post",
+      data: {
+        id: id
+      },
+      success: function(data) {
+        $('#affjc').html(data);
+        $("#Modifier").modal("show"); 
+      }
     });
-  }
-  
+  });
 
-  //recharger cette fonction toute les secondes
-  setInterval(getJC, 1000);
+  $(document).on('click','.submit',function () {
+      $.ajax({
+        url: "Public/script/modjc.php",
+        method: "POST",
+        data: $("#formjc").serialize(),
+        success: function (donnees) {
+          $('#message').html(donnees).slideDown();
+          $("#Modifier").modal("hide");
+          setInterval(refreshPage, 1000);
+        }
+      });
+      return false;
+    });
+
+    function refreshPage() {
+      location.reload();
+    }
  
 });

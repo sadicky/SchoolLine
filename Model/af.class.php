@@ -29,6 +29,14 @@ require_once("connexion.php");
         }
         return $tb;
         }
+
+        public function getAFS(){
+            $db = getconnection();
+            $all = $db->prepare("SELECT * FROM `af` Where IDAF='1'");
+            $all->execute();
+            $tb =$all->fetchObject();
+            return $tb;
+            }
   
         public function getAFId($id)
         {

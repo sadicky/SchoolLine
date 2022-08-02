@@ -4,7 +4,7 @@ require_once '../../Model/eleve.class.php';
 $getEleve = new Eleve();
 $id = $_POST['id'];
 $getE = $getEleve->getEleveId($id);
-// var_dump($getE);
+$getInsc = $getEleve->getEleveIns($id);
 ?>
 
       <div class="row">
@@ -35,8 +35,11 @@ $getE = $getEleve->getEleveId($id);
       	<div class="col-md-6">
       		<b>Année Scolaire: </b> <?=$getE->AS?><br>
       		<h3>Info sur le Paiement</h3>
-      		 2019-02-28: => 16$<br><hr>
-      		 Total à payer:  <b>200$</b><br>
+			<u>*Inscription</u><br>
+			<?php if($getInsc){?>
+			<?=$getInsc->DATEINS?>: => <b><?=$getInsc->MONTANT?>$</b><br><hr>
+			<?php }else{ echo "<b>Non Inscrit</b>";}?><br><br>
+			Total à payer:  <b>200$</b><br>
       		 Déjà payé:  <b>16$</b><br>
       		 reste à payer: <b>184$</b><hr>
       		 <h3>Absence</h3><hr>

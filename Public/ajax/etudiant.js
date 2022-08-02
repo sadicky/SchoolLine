@@ -37,8 +37,53 @@ $(document).ready(function () {
       }
     });
   });
+  $('.resultats').click(function(event) {
+    event.preventDefault();
+    var id = $(this).attr("id");
+    $.ajax({
+      url: "Public/script/vieweleveres.php",
+      method: "post",
+      data: {
+        id: id
+      },
+      success: function(data) {
+        $('#reseleve').html(data);
+        $("#Resultats").modal("show"); 
+      }
+    });
+  });
+  
+  $('.notesind').click(function(event) {
+    event.preventDefault();
+    var id = $(this).attr("id");
+    $.ajax({
+      url: "Public/script/viewelevenotesi.php",
+      method: "post",
+      data: {
+        id: id
+      },
+      success: function(data) {
+        $('#notesindi').html(data);
+        $("#NotesInd").modal("show"); 
+      }
+    });
+  });
 
-  $('.view_data').click(function() {
+  $(document).on('click','.valider',function () {
+    $.ajax({
+      url: "Public/script/addelevenotesi.php",
+      method: "POST",
+      data: $("#formnotesi").serialize(),
+      success: function (donnees) {
+        $('#message').html(donnees).slideDown();
+        $("#NotesInd").modal("hide");        
+        setInterval(refreshPage, 1000);
+      }
+    });
+    return false;
+  });
+
+  $('.view_data').click(function(event) {
     event.preventDefault();
     var id = $(this).attr("id");
     $.ajax({
@@ -48,13 +93,13 @@ $(document).ready(function () {
         id: id
       },
       success: function(data) {
-        $('#art_detail').html(data);
+        $('#art_details').html(data);
         $("#Afficher").modal("show"); 
       }
     });
   });
 
-  $('.payer').click(function() {
+  $('.payer').click(function(event) {
     event.preventDefault();
     var id = $(this).attr("id");
     $.ajax({
@@ -68,6 +113,21 @@ $(document).ready(function () {
         $("#Payer").modal("show"); 
       }
     });
+  });
+
+  
+  $(document).on('click','.submit',function () {
+    $.ajax({
+      url: "Public/script/addeleveins.php",
+      method: "POST",
+      data: $("#formeleveins").serialize(),
+      success: function (donnees) {
+        $('#message').html(donnees).slideDown();
+        $("#Payer").modal("hide");        
+        window.location.href='index.php?page=recu'; 
+      }
+    });
+    return false;
   });
   
   // $(document).on("click", ".delete", function () {

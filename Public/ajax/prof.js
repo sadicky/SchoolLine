@@ -55,7 +55,7 @@ $(document).ready(function () {
     }
   });
 
-  $('.view_data').click(function() {
+  $('.view_data').click(function(event) {
     event.preventDefault();
     var id = $(this).attr("id");
     $.ajax({
@@ -71,7 +71,7 @@ $(document).ready(function () {
     });
   });
   
-  $('.view_p').click(function() {
+  $('.view_p').click(function(event) {
     event.preventDefault();
     var id = $(this).attr("id");
     $.ajax({

@@ -10,13 +10,12 @@
       <div class="modal-body">
       <form  method="post" id='formulaire' enctype="multipart/form-data">
         <div class="form-group">
-          <input type="text" class='form-control' placeholder='Entrez votre Login' name="login" id="login" required>
-        </div>
-        <div class="form-group">
-          <input type="password" class='form-control' autocomplete='off'  placeholder='Entrez votre Password' required name="pwd" id="pwd">
-        </div>
-        <div class="form-group">
-          <input type="password" class='form-control' autocomplete='off'  placeholder='confirmer votre Password' required name="cpwd" id="cpwd">
+          <?php
+								$string = "0123456789";
+								$string = str_shuffle($string);
+								$titre = substr($string, 0, 8);
+								?>
+          <input type="text" class='form-control' value="<?php echo "AD-".$titre;?>" name="login" id="login" readonly>
         </div><hr>
         <div class="form-group">
           <input type="text" class='form-control' placeholder='Entrez votre Nom' name="nom" required id="nom">

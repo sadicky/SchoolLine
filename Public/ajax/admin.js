@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  getAdmin();
   $("#formulaire").submit(function (event) {
     event.preventDefault();
     let nom = $("#nom").val();
@@ -8,14 +7,10 @@ $(document).ready(function () {
     let login = $("#login").val();
     let email = $("#email").val();
     let dateins = $("#dateins").val();
-    let pwd = $("#pwd").val();
-    let cpwd = $("#cpwd").val();
 
     $.post(
-      "public/script/addadmin.php", {
+      "Public/script/addadmin.php", {
         login: login,
-        pwd: pwd,
-        cpwd: cpwd,
         nom: nom,
         email: email,
         dateins: dateins,
@@ -23,37 +18,27 @@ $(document).ready(function () {
         tel: tel
       },
       function (donnees) {
-        $("#message")
-          .html(donnees)
-          .slideDown();
-        $("#nom").val("");
-        $("#prenom").val("");
-        $("#tel").val("");
-        $("#login").val("");
-        $("#pwd").val("");
-        $("#cpwd").val("");
-        getAdmin();
+        $('#message').html(donnees).slideDown();
+        $("#formulaire")[0].reset();
+        $("#Ajouter").modal("hide");
+        setInterval(refreshPage, 1000);
       }
     );
     return false;
   });
 
-  function getAdmin() {
-    $.post("public/script/affadmin.php", function (data) {
-      $("#admin_data").html(data);
-    });
+  function refreshPage() {
+    location.reload();
   }
-  
 
   //recharger cette fonction toute les secondes
   //setInterval(getAdmin, 1000);
 
 
 $(document).on("click", ".det", function () {
-  afterDel();
   let id = $(this).attr("id");
     $.ajax({
-      url: "public/script/affadminid.php",
+      url: "Public/script/affadminid.php",
       method: "POST",
       data: {
         id: id
@@ -63,17 +48,16 @@ $(document).on("click", ".det", function () {
         $("#adminid")
           .html(data)
           .slideDown();
-        
+          setInterval(refreshPage, 1000);        
       }
     });
   });
 
 $(document).on("click", ".delete", function () {
-  afterDel();
   let id = $(this).attr("id");
   if (confirm("Voulez-vous supprimer cet utilisateur ? ")) {
     $.ajax({
-      url: "public/script/deleteadmin.php",
+      url: "Public/script/deleteadmin.php",
       method: "POST",
       data: {
         id: id
@@ -82,24 +66,18 @@ $(document).on("click", ".delete", function () {
         $("#message")
           .html(data)
           .slideDown();
-        afterDel();
+          setInterval(refreshPage, 1000);
       }
     });
   } else {
     return false;
   }
 });
-  function afterDel() {
-    $.post("public/script/affadmin.php", function (data) {
-      $("#admin_data").html(data);
-    });
-  }
-
 
 $(document).on("click", ".update", function () {
   var id = $(this).attr("id");
   $.ajax({
-    url: "public/script/affadidmod.php",
+    url: "Public/script/affadidmod.php",
     method: "POST",
     data: {
       id: id
@@ -120,17 +98,16 @@ $(document).on("click", ".update", function () {
   
   $(document).on("click", ".activer", function (event) {
   event.preventDefault();
-    afterDel();
     var id = $(this).attr("id");
     if (confirm("Voulez-vous activer cet utilisateur ? ")) {
       $.ajax({
-        url: "public/script/activadmin.php",
+        url: "Public/script/activadmin.php",
         method: "POST",
         data: {
           id: id
         },
         success: function (data) {
-          getAdmin();
+          setInterval(refreshPage, 1000);
         }
       });
     } else {
@@ -140,7 +117,6 @@ $(document).on("click", ".update", function () {
   
   $(document).on("click", ".desactiver", function (event) {
 	event.preventDefault();
-    afterDel();
     var id = $(this).attr("id");
     if (confirm("Voulez-vous desactiver cet utilisateur ? ")) {
       $.ajax({
@@ -150,7 +126,7 @@ $(document).on("click", ".update", function () {
           id: id
         },
         success: function (data) {
-          getAdmin();
+          setInterval(refreshPage, 1000);
         }
       });
     } else {

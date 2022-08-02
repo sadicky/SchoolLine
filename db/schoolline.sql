@@ -20,21 +20,22 @@ USE `schoolline`;
 -- Dumping structure for table schoolline.admin
 CREATE TABLE IF NOT EXISTS `admin` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `LOGIN` varchar(50) DEFAULT NULL,
+  `MATRICULE` varchar(50) DEFAULT NULL,
   `PWD` varchar(90) DEFAULT NULL,
   `NOM` varchar(20) DEFAULT NULL,
   `PRENOM` varchar(20) DEFAULT NULL,
-  `TEL` varchar(20) NOT NULL,
+  `TEL` varchar(20) DEFAULT NULL,
   `EMAIL` varchar(50) DEFAULT NULL,
   `ACCESS` tinyint(1) DEFAULT NULL,
   `DATEINS` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table schoolline.admin: ~2 rows (approximately)
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` (`ID`, `LOGIN`, `PWD`, `NOM`, `PRENOM`, `TEL`, `EMAIL`, `ACCESS`, `DATEINS`) VALUES
-	(4, 'admin9652', '33d3b157ddc0896addfb22fa2a519097', 'Placide', 'Musafiri', '79299299', 'davidsadiki09@gmail.com', 1, '2022-07-15 22:23:33');
+INSERT INTO `admin` (`ID`, `MATRICULE`, `PWD`, `NOM`, `PRENOM`, `TEL`, `EMAIL`, `ACCESS`, `DATEINS`) VALUES
+	(5, 'AD-30125678', NULL, 'Sadicky ', 'Dave', '', '', 0, '2022-07-28 19:16:02'),
+	(6, 'AD-31894276', NULL, 'Mutumbi', 'Matenga', '+243979652321', '', 0, '2022-07-28 05:07:00');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.af
@@ -46,12 +47,13 @@ CREATE TABLE IF NOT EXISTS `af` (
   PRIMARY KEY (`IDAF`),
   KEY `IDAA` (`IDAA`),
   CONSTRAINT `af_ibfk_1` FOREIGN KEY (`IDAA`) REFERENCES `asco` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.af: ~0 rows (approximately)
+-- Dumping data for table schoolline.af: ~2 rows (approximately)
 /*!40000 ALTER TABLE `af` DISABLE KEYS */;
 INSERT INTO `af` (`IDAF`, `MONTANT`, `MOTIF`, `IDAA`) VALUES
-	(1, 15, 'Frais d\'Inscription', 3);
+	(1, 15, 'Frais d\'Inscription', 3),
+	(2, 10, 'Construction', 3);
 /*!40000 ALTER TABLE `af` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.asco
@@ -61,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `asco` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.asco: ~2 rows (approximately)
+-- Dumping data for table schoolline.asco: ~1 rows (approximately)
 /*!40000 ALTER TABLE `asco` DISABLE KEYS */;
 INSERT INTO `asco` (`ID`, `AS`) VALUES
 	(3, '2022-2023');
@@ -118,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `catlivre` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.catlivre: ~2 rows (approximately)
+-- Dumping data for table schoolline.catlivre: ~3 rows (approximately)
 /*!40000 ALTER TABLE `catlivre` DISABLE KEYS */;
 INSERT INTO `catlivre` (`ID`, `LIBELLE`, `STATUS`, `CREATIONDATE`, `UPDATIONDATE`) VALUES
 	(6, 'Romantique', 1, '2020-07-17 14:28:59', NULL),
@@ -137,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `classe` (
   CONSTRAINT `classe_ibfk_1` FOREIGN KEY (`IDOPT`) REFERENCES `options` (`IDOPT`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.classe: ~0 rows (approximately)
+-- Dumping data for table schoolline.classe: ~2 rows (approximately)
 /*!40000 ALTER TABLE `classe` DISABLE KEYS */;
 INSERT INTO `classe` (`IDCLA`, `CLASSE`, `ACCESS`, `IDOPT`) VALUES
 	(1, '3e HL/A', '1', 1),
@@ -158,13 +160,17 @@ CREATE TABLE IF NOT EXISTS `cours` (
   KEY `IDCLA` (`IDCLA`),
   CONSTRAINT `cours_ibfk_1` FOREIGN KEY (`IDAA`) REFERENCES `asco` (`ID`),
   CONSTRAINT `cours_ibfk_2` FOREIGN KEY (`IDCLA`) REFERENCES `classe` (`IDCLA`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.cours: ~0 rows (approximately)
+-- Dumping data for table schoolline.cours: ~6 rows (approximately)
 /*!40000 ALTER TABLE `cours` DISABLE KEYS */;
 INSERT INTO `cours` (`IDCO`, `COURS`, `POND`, `NBH`, `ACCESS`, `IDCLA`, `IDAA`) VALUES
 	(1, 'Latin', '280', 120, '0', 1, 3),
-	(2, 'Histoire', '80', 75, '0', 2, 3);
+	(2, 'Histoire', '80', 75, '0', 2, 3),
+	(3, 'GÃ©ographie', '100', 15, '0', 2, 3),
+	(4, 'FranÃ§ais', '100', 120, '0', 2, 3),
+	(5, 'MathÃ©matique', '100', 15, '0', 2, 3),
+	(6, 'Science', '100', 15, '0', 2, 3);
 /*!40000 ALTER TABLE `cours` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.eleve
@@ -178,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `eleve` (
   `TEL` varchar(30) DEFAULT NULL,
   `DOB` date DEFAULT NULL,
   `ECOLE_ORIGINE` varchar(60) DEFAULT NULL,
-  `ACCESS` enum('M','F') DEFAULT NULL,
+  `ACCESS` enum('0','1') DEFAULT NULL,
   `DATEINS` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `IDCLA` int(11) DEFAULT NULL,
   `IDAS` int(11) DEFAULT NULL,
@@ -187,14 +193,38 @@ CREATE TABLE IF NOT EXISTS `eleve` (
   KEY `IDAS` (`IDAS`),
   CONSTRAINT `eleve_ibfk_1` FOREIGN KEY (`IDCLA`) REFERENCES `classe` (`IDCLA`),
   CONSTRAINT `eleve_ibfk_2` FOREIGN KEY (`IDAS`) REFERENCES `asco` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.eleve: ~2 rows (approximately)
+-- Dumping data for table schoolline.eleve: ~5 rows (approximately)
 /*!40000 ALTER TABLE `eleve` DISABLE KEYS */;
 INSERT INTO `eleve` (`ID`, `MATRICULE`, `NOM`, `PRENOM`, `EMAIL`, `SEXE`, `TEL`, `DOB`, `ECOLE_ORIGINE`, `ACCESS`, `DATEINS`, `IDCLA`, `IDAS`) VALUES
-	(2, 'EL-10629437', 'Placide Musafiri', 'Carim', 'placimus@gmail.com', 'M', '+25775985655', '1994-07-15', 'MUNANIRA', '', '2022-07-15 02:07:00', 2, 3),
-	(3, 'EL-86902345', 'Jimmy', 'Walumire', 'jimwaluu@gmail.com', 'M', '+25775985655', '1989-07-15', 'COMPLEXE SCOLAIRE NURU', '', '2022-07-15 07:07:00', 1, 3);
+	(1, 'EL-30972648', 'Adela ', 'Masupa', 'ademas@gmail.com', 'F', '9841984999', '2022-07-28', 'IMU', '1', '2022-07-28 15:48:57', 1, 3),
+	(2, 'EL-87106259', 'Saleh Matenga', 'Jean-Paul', 'ademas@gmail.com', 'M', '9841984999', '2011-07-28', 'IMU', '1', '2022-07-28 15:50:56', 2, 3),
+	(3, 'EL-92745106', 'Bandyayera ', 'Didier', 'ademas@gmail.com', 'M', '9841984999', '2022-07-29', 'IMU', '1', '2022-07-28 17:12:05', 2, 3),
+	(4, 'EL-80461392', 'Nshime', 'Carel', 'ademas@gmail.com', 'M', '9841984999', '2000-07-28', 'IMU', '1', '2022-07-28 18:41:08', 2, 3),
+	(5, 'EL-09732841', 'Paul', 'Magarama', '', 'M', '', '2022-07-10', '', '1', '2022-07-29 17:53:28', 2, 3);
 /*!40000 ALTER TABLE `eleve` ENABLE KEYS */;
+
+-- Dumping structure for table schoolline.eleveinsc
+CREATE TABLE IF NOT EXISTS `eleveinsc` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `MONTANT` float DEFAULT NULL,
+  `IDEL` int(11) DEFAULT NULL,
+  `DATEINS` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `IDEL` (`IDEL`),
+  CONSTRAINT `eleveinsc_ibfk_1` FOREIGN KEY (`IDEL`) REFERENCES `eleve` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table schoolline.eleveinsc: ~5 rows (approximately)
+/*!40000 ALTER TABLE `eleveinsc` DISABLE KEYS */;
+INSERT INTO `eleveinsc` (`ID`, `MONTANT`, `IDEL`, `DATEINS`) VALUES
+	(2, 15, 1, '2022-07-28 01:07:00'),
+	(3, 15, 2, '2022-07-28 01:07:00'),
+	(4, 15, 3, '2022-07-28 03:07:00'),
+	(5, 15, 4, '2022-07-28 04:07:00'),
+	(8, 15, 5, '2022-07-29 03:07:00');
+/*!40000 ALTER TABLE `eleveinsc` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.encodeur
 CREATE TABLE IF NOT EXISTS `encodeur` (
@@ -228,12 +258,13 @@ CREATE TABLE IF NOT EXISTS `fs` (
   KEY `IDCLA` (`IDCLA`),
   CONSTRAINT `fs_ibfk_1` FOREIGN KEY (`IDAA`) REFERENCES `asco` (`ID`),
   CONSTRAINT `fs_ibfk_2` FOREIGN KEY (`IDCLA`) REFERENCES `classe` (`IDCLA`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.fs: ~1 rows (approximately)
+-- Dumping data for table schoolline.fs: ~2 rows (approximately)
 /*!40000 ALTER TABLE `fs` DISABLE KEYS */;
 INSERT INTO `fs` (`IDFS`, `MONTANT`, `ACCESS`, `IDCLA`, `IDAA`) VALUES
-	(1, '280', '0', 1, 3);
+	(1, '280', '0', 1, 3),
+	(2, '280', '0', 2, 3);
 /*!40000 ALTER TABLE `fs` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.jc
@@ -242,15 +273,18 @@ CREATE TABLE IF NOT EXISTS `jc` (
   `MOTIF` varchar(200) DEFAULT NULL,
   `DATEFIN` date DEFAULT NULL,
   `DATEDEB` date DEFAULT NULL,
-  PRIMARY KEY (`IDJC`)
+  `AA` int(11) DEFAULT NULL,
+  PRIMARY KEY (`IDJC`),
+  KEY `FK_jc_asco` (`AA`),
+  CONSTRAINT `FK_jc_asco` FOREIGN KEY (`AA`) REFERENCES `asco` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table schoolline.jc: ~3 rows (approximately)
 /*!40000 ALTER TABLE `jc` DISABLE KEYS */;
-INSERT INTO `jc` (`IDJC`, `MOTIF`, `DATEFIN`, `DATEDEB`) VALUES
-	(1, 'Fin', '2020-06-26', '2020-06-04'),
-	(3, 'Mort du President', '2020-06-26', '2020-06-25'),
-	(4, 'Independance', '2020-06-30', '2020-06-30');
+INSERT INTO `jc` (`IDJC`, `MOTIF`, `DATEFIN`, `DATEDEB`, `AA`) VALUES
+	(1, 'Fin d\'AnnÃ©e', '2022-06-30', '2022-06-04', NULL),
+	(3, 'Mort du President', '2020-06-26', '2020-06-25', NULL),
+	(4, 'Independance', '2020-06-30', '2020-06-30', NULL);
 /*!40000 ALTER TABLE `jc` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.livre
@@ -275,6 +309,34 @@ INSERT INTO `livre` (`ID`, `DESIGNATION`, `AUTEUR`, `CATID`, `ISBNNum`, `REGDATE
 	(4, '', '', 6, '', '2022-07-15 12:31:21', NULL);
 /*!40000 ALTER TABLE `livre` ENABLE KEYS */;
 
+-- Dumping structure for table schoolline.notes
+CREATE TABLE IF NOT EXISTS `notes` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `IDEL` int(11) NOT NULL,
+  `IDC` int(11) NOT NULL,
+  `IDPER` int(11) NOT NULL,
+  `NOTES` double NOT NULL,
+  `NOTEDEM` int(11) NOT NULL DEFAULT '0',
+  `TYPE` enum('Interro','Examen','Devoir') DEFAULT NULL,
+  `DATEAJ` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`) USING BTREE,
+  KEY `IDEL` (`IDEL`),
+  KEY `IDPER` (`IDPER`),
+  KEY `IDC` (`IDC`),
+  CONSTRAINT `notes_ibfk_1` FOREIGN KEY (`IDEL`) REFERENCES `eleve` (`ID`),
+  CONSTRAINT `notes_ibfk_2` FOREIGN KEY (`IDPER`) REFERENCES `periode` (`ID`),
+  CONSTRAINT `notes_ibfk_3` FOREIGN KEY (`IDC`) REFERENCES `cours` (`IDCO`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table schoolline.notes: ~4 rows (approximately)
+/*!40000 ALTER TABLE `notes` DISABLE KEYS */;
+INSERT INTO `notes` (`ID`, `IDEL`, `IDC`, `IDPER`, `NOTES`, `NOTEDEM`, `TYPE`, `DATEAJ`) VALUES
+	(1, 5, 2, 1, 7, 10, 'Interro', '2022-07-31 23:30:20'),
+	(2, 5, 3, 1, 3, 10, 'Interro', '2022-07-31 23:34:25'),
+	(3, 5, 4, 1, 6, 10, 'Interro', '2022-07-31 23:35:31'),
+	(4, 5, 5, 1, 4, 10, 'Interro', '2022-07-31 23:36:04');
+/*!40000 ALTER TABLE `notes` ENABLE KEYS */;
+
 -- Dumping structure for table schoolline.options
 CREATE TABLE IF NOT EXISTS `options` (
   `IDOPT` int(11) NOT NULL AUTO_INCREMENT,
@@ -296,6 +358,27 @@ INSERT INTO `options` (`IDOPT`, `OPT`, `ACCESS`, `IDSECT`) VALUES
 	(5, 'Administration', '1', 3),
 	(6, 'Info', '1', 3);
 /*!40000 ALTER TABLE `options` ENABLE KEYS */;
+
+-- Dumping structure for table schoolline.periode
+CREATE TABLE IF NOT EXISTS `periode` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `PERIODE` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `IDSEM` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`) USING BTREE,
+  KEY `IDSEM` (`IDSEM`),
+  CONSTRAINT `periode_ibfk_1` FOREIGN KEY (`IDSEM`) REFERENCES `semestre` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table schoolline.periode: ~6 rows (approximately)
+/*!40000 ALTER TABLE `periode` DISABLE KEYS */;
+INSERT INTO `periode` (`ID`, `PERIODE`, `IDSEM`) VALUES
+	(1, '1ere Periode', 1),
+	(2, '2e Periode', 1),
+	(3, 'Examen I', 1),
+	(4, '3e Periode', 2),
+	(5, '4e Periode', 2),
+	(6, 'Examen II', 2);
+/*!40000 ALTER TABLE `periode` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.prof
 CREATE TABLE IF NOT EXISTS `prof` (
@@ -321,7 +404,7 @@ INSERT INTO `prof` (`ID`, `MATRICULE`, `NOMS`, `EMAIL`, `SEXE`, `TEL`, `DOB`, `N
 	(3, 'P-57289634', 'benigne b', 'Dsadicky@gmail.com', 'F', '+25468598258', '2022-07-12', 'Licence', 0, '', '2022-07-12 23:02:22'),
 	(4, 'P-15687349', 'SABenie N', 'benignebeniw@gmail.com', 'F', '8941968161', '2022-07-12', 'Licence', 1, '', '2022-07-18 18:12:06'),
 	(5, 'P-12594036', 'Kebano Bushole Neskens', 'Dsadicky@gmail.com', 'M', '+25468598258', '2022-07-12', 'Doctorat', 0, '$2y$10$aAyL2OqbP.PMfnsVXOWo1.D9b/Vx3RCDFTeMBsby8nBXCfTAPH96e', '2022-07-18 18:09:12'),
-	(6, 'P-41389602', 'Gakima Nadia ', 'gkimanadia@gmail.com', 'F', '+25468598258', '2022-07-12', 'A2', 0, '$2y$10$Doml3m/hLvEN3RqfDkG.Bu8Jj78I4ZuUMMGE9blRfokNMoKa3btQu', '2022-07-12 02:07:42'),
+	(6, 'P-41389602', 'Gakima Nadia ', 'gkimanadia@gmail.com', 'F', '+25468598258', '2022-07-12', 'A2', 1, '$2y$10$Doml3m/hLvEN3RqfDkG.Bu8Jj78I4ZuUMMGE9blRfokNMoKa3btQu', '2022-07-31 22:38:49'),
 	(7, 'P-14375089', 'Mutumbi Matenga Jean Paul', 'Mutujean@gmail.com', 'M', '+243985982580', '1986-10-11', 'Grade', 0, '$2y$10$0AT79.aztaRhPkRRDGtfGu2yBxBz1GLJg9P6wSEnlnCi6nyRWCMBe', '2022-07-12 06:07:43'),
 	(8, 'P-37409285', 'Ngomanziza Bienvenu', 'ngomabi@gmail.com', 'M', '+25468598258', '2022-07-10', 'Doctorat', 0, '$2y$10$A.bLsaBo7RgxN.B6S31M7.zTRgzV.g35snbn.L.Rj9cNQFO9Od6ce', '2022-07-12 08:07:12');
 /*!40000 ALTER TABLE `prof` ENABLE KEYS */;
@@ -344,12 +427,17 @@ CREATE TABLE IF NOT EXISTS `profcours` (
   CONSTRAINT `profcours_ibfk_4` FOREIGN KEY (`IDAS`) REFERENCES `asco` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.profcours: ~0 rows (approximately)
+-- Dumping data for table schoolline.profcours: ~8 rows (approximately)
 /*!40000 ALTER TABLE `profcours` DISABLE KEYS */;
 INSERT INTO `profcours` (`IDP`, `IDCLA`, `IDCO`, `IDAS`, `ACCESS`, `DATEINS`) VALUES
 	(3, 1, 1, 3, '1', '2022-07-18 04:07:41'),
+	(3, 2, 2, 3, '1', '2022-07-28 03:07:45'),
 	(5, 1, 1, 3, '0', '2022-07-12 10:07:25'),
-	(5, 2, 2, 3, '1', '2022-07-14 06:07:36');
+	(5, 2, 2, 3, '1', '2022-07-14 06:07:36'),
+	(6, 2, 2, 3, '1', '2022-07-31 08:07:36'),
+	(6, 2, 3, 3, '1', '2022-07-31 08:07:13'),
+	(6, 2, 4, 3, '1', '2022-07-31 08:07:20'),
+	(6, 2, 6, 3, '1', '2022-07-31 08:07:06');
 /*!40000 ALTER TABLE `profcours` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.section
@@ -360,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `section` (
   PRIMARY KEY (`IDSECT`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.section: ~3 rows (approximately)
+-- Dumping data for table schoolline.section: ~5 rows (approximately)
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
 INSERT INTO `section` (`IDSECT`, `SECTION`, `ACCESS`) VALUES
 	(1, 'LittÃ©raire', '1'),
@@ -370,6 +458,20 @@ INSERT INTO `section` (`IDSECT`, `SECTION`, `ACCESS`) VALUES
 	(5, 'Agronomie', '1');
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 
+-- Dumping structure for table schoolline.semestre
+CREATE TABLE IF NOT EXISTS `semestre` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SEMESTRE` varchar(50) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table schoolline.semestre: ~2 rows (approximately)
+/*!40000 ALTER TABLE `semestre` DISABLE KEYS */;
+INSERT INTO `semestre` (`ID`, `SEMESTRE`) VALUES
+	(1, '1e Semestre'),
+	(2, '2e Semestre');
+/*!40000 ALTER TABLE `semestre` ENABLE KEYS */;
+
 -- Dumping structure for table schoolline.sortie
 CREATE TABLE IF NOT EXISTS `sortie` (
   `IDS` int(11) NOT NULL AUTO_INCREMENT,
@@ -378,8 +480,7 @@ CREATE TABLE IF NOT EXISTS `sortie` (
   `DAT` date DEFAULT NULL,
   `NIV` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDS`),
-  KEY `NIV` (`NIV`),
-  CONSTRAINT `sortie_ibfk_1` FOREIGN KEY (`NIV`) REFERENCES `niveau` (`IDNiv`)
+  KEY `NIV` (`NIV`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table schoolline.sortie: ~3 rows (approximately)
@@ -389,24 +490,6 @@ INSERT INTO `sortie` (`IDS`, `CON`, `DES`, `DAT`, `NIV`) VALUES
 	(3, 'mkjfdhbikjds', 'yg8iuysgoius', '2020-06-29', 6),
 	(4, 'TYU6TRU', 'RURUU', '2020-06-27', 12);
 /*!40000 ALTER TABLE `sortie` ENABLE KEYS */;
-
--- Dumping structure for table schoolline.tuteuretud
-CREATE TABLE IF NOT EXISTS `tuteuretud` (
-  `IdTit` int(11) NOT NULL AUTO_INCREMENT,
-  `PERE` varchar(50) DEFAULT NULL,
-  `MERE` varchar(50) DEFAULT NULL,
-  `TELEPERE` varchar(50) DEFAULT NULL,
-  `TELEMERE` varchar(50) DEFAULT NULL,
-  `autres` varchar(20) DEFAULT NULL,
-  `IDEtud` int(11) DEFAULT NULL,
-  PRIMARY KEY (`IdTit`),
-  KEY `IDEtud` (`IDEtud`),
-  CONSTRAINT `tuteuretud_ibfk_1` FOREIGN KEY (`IDEtud`) REFERENCES `eleve` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dumping data for table schoolline.tuteuretud: ~0 rows (approximately)
-/*!40000 ALTER TABLE `tuteuretud` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tuteuretud` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

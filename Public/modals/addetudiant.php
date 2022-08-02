@@ -25,8 +25,8 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<b><label>Année Académique: </label> <span class="text-danger">*</span></b> <select name="aa" id="aa" class='form-control'>
-									<option id="aa" name="aa" value=''>Choisir une Annee Academique</option>
+								<b><label>Année Scolaire: </label> <span class="text-danger">*</span></b> <select name="aa" id="aa" class='form-control'>
+									<option id="aa" name="aa" value=''>Choisir une Annee Scolaire</option>
 									<?php foreach ($getAa as $a) { ?>
 										<option value='<?= $a->ID ?>'><?= $a->AS ?></option>
 									<?php } ?>

@@ -10,7 +10,7 @@
       <div class="modal-body">
       <form  method="post" id='formulaire' enctype="multipart/form-data">
 		<div class="form-group">
-		<select name="fac" id="fac" class='form-control'>
+		<select name="fac" id="fac" class='form-control select2'>
 			<option value=''>Choisir une section</option>
 			<?php foreach ($getO as $f) {?>
 				<option value='<?=$f->IDSECT?>'><?=$f->SECTION?></option>				
@@ -18,7 +18,7 @@
 		</select>
 		</div>		
 		<div class="form-group">
-		<select name="dep" id="dep" class='form-control'>
+		<select name="dep" id="dep" class='form-control select2'>
 			<option value=''>Choisir une Option</option>
 		</select>
 		</div>		

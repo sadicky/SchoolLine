@@ -14,19 +14,18 @@ Class Admin
     public $email;
     public $dateins=null;
 
-    public function setAdmin($login,$pwd,$nom,$prenom,$tel,$email,$access,$dateins)
+    public function setAdmin($login,$nom,$prenom,$tel,$email,$access,$dateins)
     {   
         $this->nom=$nom;
         $this->prenom=$prenom;
         $this->tel=$tel;
         $this->login=$login;
-        $this->pwd=$pwd;
         $this->email=$email;
         $this->dateins=$dateins;
         $db = getconnection();
-        $add = $db->prepare("INSERT INTO admin(LOGIN,PWD,NOM,PRENOM,TEL,EMAIL,ACCESS,DATEINS)
-        VALUES(?,?,?,?,?,?,?,?)");
-        $addline = $add->execute(array($login,$pwd,$nom,$prenom,$tel,$email,$access,$dateins)) or die(print_r($add->errorInfo()));
+        $add = $db->prepare("INSERT INTO admin(MATRICULE,NOM,PRENOM,TEL,EMAIL,ACCESS,DATEINS)
+        VALUES(?,?,?,?,?,?,?)");
+        $addline = $add->execute(array($login,$nom,$prenom,$tel,$email,$access,$dateins)) or die(print_r($add->errorInfo()));
         return $addline;
     }
 	

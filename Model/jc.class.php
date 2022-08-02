@@ -16,6 +16,12 @@ require_once("connexion.php");
         $addline = $add->execute(array($motif,$datefin,$datedeb)) or die(print_r($add->errorInfo()));
         return $addline;
         }
+        public function updateJC($motif,$datefin,$datedeb,$id){
+            $db = getconnection();
+            $add = $db->prepare("UPDATE jc SET MOTIF=?,DATEFIN=?,DATEDEB=? WHERE IDJC=?");
+            $addline = $add->execute(array($motif,$datefin,$datedeb,$id)) or die(print_r($add->errorInfo()));
+            return $addline;
+            }
 
         //afficher toutes les fac
         public function getJC(){
@@ -30,16 +36,12 @@ require_once("connexion.php");
         return $tb;
         }
   
-        public function getJCId($id)
+        public function getJcId($id)
         {
             $db = getConnection();
             $matP = $db->prepare("SELECT * FROM jc WHERE IDJC=? LIMIT 1");
             $matP->execute(array($id));
-            $res = array();
-            while($data = $matP->fetchObject())
-            {
-                $res[] = $data;
-            }
+            $res =$matP->fetchObject();
             return $res;
         }
 

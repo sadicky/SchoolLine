@@ -8,7 +8,8 @@ include 'public/includes/header.php'; ?>
 			<ul class="list-group">
 				<li class="list-group-item"> <a href="">Les Elèves Inscrits</a></li>
 				<li class="list-group-item"> <a href="">Les Elèves Admis</a></li>
-				<li class="list-group-item"> <a href="">Suppprimer</a></li>
+				<li class="list-group-item"> <a href="">Reprendre de Classe</a></li>
+				<li class="list-group-item"> <a href="">Monter de Classe</a></li>
 			</ul>
 		</div>
 		<div class="col-sm-10">
@@ -17,7 +18,7 @@ include 'public/includes/header.php'; ?>
 				<div class="panel-heading"><b><span class="glyphicon glyphicon-edit"></span> Les Elèves</b></div>
 				<div class="panel-body">
 					<div class='col-sm-12' id="message"></div>
-					<table class="table table-condensed table-bordered table-striped" id="dataTables-example" style="margin-top:20px">
+					<table class="table table-condensed table-bordered table-striped" id="example" style="margin-top:20px">
 						<thead>
 							<tr>
 								<th>Matricule</th>
@@ -29,6 +30,7 @@ include 'public/includes/header.php'; ?>
 								<th>Section</th>
 								<th>Etat</th>
 								<th>Payer</th>
+								<th>Notes</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -36,7 +38,7 @@ include 'public/includes/header.php'; ?>
 						<tbody>
 							<?php
 							foreach ($getE as $value) {
-								echo "<tr><td><b><a href='index.php?page=elevedet&id=" . $value->ID . "' >" . $value->MATRICULE . "</b></a></td>";
+								echo "<tr><td><b><a href='index.php?page=elevedet&id=" . $value->MATRICULE . "' >" . $value->MATRICULE . "</b></a></td>";
 								echo "<td><b>" . $value->NOM . "</b></td>";
 								echo "<td><b>" . $value->PRENOM . "</b></td>";
 								echo "<td>" . $value->SEXE . "</td>";
@@ -51,13 +53,13 @@ include 'public/includes/header.php'; ?>
 								if ($value->ACCESS == 0) {
 									echo "<td><button type='button'  id='" . $value->ID . "' name='activer' class='btn btn-xs btn-danger btn-block payer' ><span class='glyphicon glyphicon-remove' ></span> Inscription</button></td>";
 								} else {
-									echo "<td>	<button type='button'  id='" . $value->ID . "' name='desactiver' class='btn btn-xs btn-block btn-default disabled'><span class='glyphicon glyphicon-ok' ></span> Inscrit</button>
+									echo "<td>	<button type='button'  id='" . $value->ID . "' name='desactiver' class='btn btn-xs btn-block btn-default disabled'><span class='glyphicon glyphicon-ok' ></span> Admis(e)</button>
 									 </td>";
 								}
-
-								echo "<td>
-										  <button type='button' id='" . $value->ID . "' class='btn btn-block btn-xs btn-primary view_data'><span class='glyphicon glyphicon-list'></span></button>
-								 </td></tr>";
+								echo "<td><button type='button' id='" . $value->ID . "' class='btn btn-block btn-xs btn-success notesind'><span class='glyphicon glyphicon-folder-open'></span></button>
+								 </td>";
+								 echo "<td><button type='button' id='" . $value->ID . "' class='btn btn-block btn-xs btn-primary view_data'><span class='glyphicon glyphicon-list'></span></button>
+								  </td></tr>";
 							}
 							?>
 
@@ -78,6 +80,8 @@ include 'public/includes/header.php'; ?>
 include_once 'Public/modals/addetudiant.php';
 include_once 'Public/modals/inscription.php';
 include_once 'Public/modals/affetudiant.php';
+include_once 'Public/modals/notesind.php';
+// include_once 'Public/modals/resultat.php';
 ?>
-<script type="text/javascript" src="Public/ajax/etudiant.js"></script>
+<script type="text/javascript" src="Public/ajax/etudiant.js"></script>	
 <script type="text/javascript" src="Public/ajax/join2.js"></script>

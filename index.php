@@ -187,6 +187,10 @@ if(isset($_GET['page'])){
 	{
 		profdet();
 	}
+	else if($_GET['page']=='elevedet')
+	{
+		elevedet();
+	}
 	else{
 		home();
 	}	

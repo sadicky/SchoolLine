@@ -6,8 +6,8 @@
                		<div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-info text-center">
                             <span class="glyphicon glyphicon-user"></span><h1>
-							<?php echo 263;?></h1>
-                           Etudiants
+							<?=count($getEA)?></h1>
+                           Elèves Admis
 					  </div>
 					</div>	
                		<div class="col-md-3 col-sm-3 col-xs-6">
