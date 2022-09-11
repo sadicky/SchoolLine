@@ -9,7 +9,11 @@ if(isset($_GET['page'])){
 	{
 		accueilAdmin();
 	}
-	else if($_GET['page']=='non_allow')
+	else if($_GET['page']=='logout')
+	{
+		logout();
+	}
+	else if($_GET['page']=='non')
 	{
 		non_allow();
 	}
@@ -33,9 +37,9 @@ if(isset($_GET['page'])){
 	{
 		accueilBibliotheque();
 	}
-	else if($_GET['page']=='modadmin')
+	else if($_GET['page']=='noteElev')
 	{
-		modAdmin();
+		noteElev();
 	}	
 	else if($_GET['page']=='affadmin')
 	{
@@ -190,6 +194,10 @@ if(isset($_GET['page'])){
 	else if($_GET['page']=='elevedet')
 	{
 		elevedet();
+	}
+	else if($_GET['page']=='detailElev')
+	{
+		detailElev();
 	}
 	else{
 		home();

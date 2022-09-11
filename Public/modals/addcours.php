@@ -12,7 +12,7 @@
       <form  method="post" id='formulaire' enctype="multipart/form-data">
       <div class="form-group">
 		<select name="aa" id="aa" class='form-control'>
-			<option value=''>Choisir une Annee Academique</option>
+			<option value=''>Choisir une Annee Scolaire</option>
 			<?php foreach ($getAa as $a) {?>
 				<option value='<?=$a->ID?>'><?=$a->AS?></option>				
 			<?php } ?>

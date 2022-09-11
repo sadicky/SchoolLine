@@ -64,7 +64,7 @@ Class Prof
     public function getProfId($idprof)
     {
         $db = getConnection();
-        $matP = $db->prepare("SELECT * FROM prof WHERE ID=? LIMIT 1");
+        $matP = $db->prepare("SELECT * FROM prof WHERE MATRICULE=? LIMIT 1");
         $matP->execute(array($idprof));
         $res = $matP->fetch(PDO::FETCH_OBJ);
         return $res;
@@ -76,7 +76,7 @@ Class Prof
         $db = getConnection();
         $matP = $db->prepare("SELECT cours.COURS as COURS,classe.CLASSE as CLASSE FROM profcours,cours,asco,classe,prof WHERE
         profcours.IDP=prof.ID AND profcours.IDCLA=classe.IDCLA AND profcours.IDCO=cours.IDCO
-        AND profcours.IDAS=asco.ID AND prof.ID=?");
+        AND profcours.IDAS=asco.ID AND prof.MATRICULE=?");
         $matP->execute(array($idprof));
         $res = $matP->fetchAll(PDO::FETCH_OBJ);
         return $res;

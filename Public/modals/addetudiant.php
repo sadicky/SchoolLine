@@ -39,8 +39,8 @@
 								<input type="text" placeholder="Prénom" class="form-control" id="prenom" name="prenom" required>
 							</div>
 							<div class="form-group">
-								<label><b>Téléphone:</b></label>
-								<input class="form-control" placeholder="Téléphone" type="tel" id="tel" name="tel">
+								<label><b>Adresse:</b></label>
+								<input class="form-control" placeholder="adresse" type="tel" id="tel" name="tel">
 							</div>
 							<div class="form-group">
 								<b><label>Section: </label> <span class="text-danger">*</span></b>

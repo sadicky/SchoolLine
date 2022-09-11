@@ -3,7 +3,7 @@
 require_once '../../Model/eleve.class.php';
 $getEleve = new Eleve();
 $id = $_POST['id'];
-$getE = $getEleve->getEleveId($id);
+$getE = $getEleve->getEleveId2($id);
 $getInsc = $getEleve->getEleveIns($id);
 ?>
 

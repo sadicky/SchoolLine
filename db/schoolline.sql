@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.admin: ~2 rows (approximately)
+-- Dumping data for table schoolline.admin: ~1 rows (approximately)
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
 INSERT INTO `admin` (`ID`, `MATRICULE`, `PWD`, `NOM`, `PRENOM`, `TEL`, `EMAIL`, `ACCESS`, `DATEINS`) VALUES
 	(5, 'AD-30125678', NULL, 'Sadicky ', 'Dave', '', '', 0, '2022-07-28 19:16:02'),
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `af` (
   CONSTRAINT `af_ibfk_1` FOREIGN KEY (`IDAA`) REFERENCES `asco` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.af: ~2 rows (approximately)
+-- Dumping data for table schoolline.af: ~0 rows (approximately)
 /*!40000 ALTER TABLE `af` DISABLE KEYS */;
 INSERT INTO `af` (`IDAF`, `MONTANT`, `MOTIF`, `IDAA`) VALUES
 	(1, 15, 'Frais d\'Inscription', 3),
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `asco` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.asco: ~1 rows (approximately)
+-- Dumping data for table schoolline.asco: ~2 rows (approximately)
 /*!40000 ALTER TABLE `asco` DISABLE KEYS */;
 INSERT INTO `asco` (`ID`, `AS`) VALUES
 	(3, '2022-2023');
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `catlivre` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.catlivre: ~3 rows (approximately)
+-- Dumping data for table schoolline.catlivre: ~2 rows (approximately)
 /*!40000 ALTER TABLE `catlivre` DISABLE KEYS */;
 INSERT INTO `catlivre` (`ID`, `LIBELLE`, `STATUS`, `CREATIONDATE`, `UPDATIONDATE`) VALUES
 	(6, 'Romantique', 1, '2020-07-17 14:28:59', NULL),
@@ -137,13 +137,14 @@ CREATE TABLE IF NOT EXISTS `classe` (
   PRIMARY KEY (`IDCLA`),
   KEY `IDOPT` (`IDOPT`),
   CONSTRAINT `classe_ibfk_1` FOREIGN KEY (`IDOPT`) REFERENCES `options` (`IDOPT`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.classe: ~2 rows (approximately)
+-- Dumping data for table schoolline.classe: ~0 rows (approximately)
 /*!40000 ALTER TABLE `classe` DISABLE KEYS */;
 INSERT INTO `classe` (`IDCLA`, `CLASSE`, `ACCESS`, `IDOPT`) VALUES
 	(1, '3e HL/A', '1', 1),
-	(2, '1e CO/A', '1', 4);
+	(2, '1e CO/A', '1', 4),
+	(3, '3e MP', NULL, 2);
 /*!40000 ALTER TABLE `classe` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.cours
@@ -160,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `cours` (
   KEY `IDCLA` (`IDCLA`),
   CONSTRAINT `cours_ibfk_1` FOREIGN KEY (`IDAA`) REFERENCES `asco` (`ID`),
   CONSTRAINT `cours_ibfk_2` FOREIGN KEY (`IDCLA`) REFERENCES `classe` (`IDCLA`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table schoolline.cours: ~6 rows (approximately)
 /*!40000 ALTER TABLE `cours` DISABLE KEYS */;
@@ -170,7 +171,8 @@ INSERT INTO `cours` (`IDCO`, `COURS`, `POND`, `NBH`, `ACCESS`, `IDCLA`, `IDAA`) 
 	(3, 'GÃ©ographie', '100', 15, '0', 2, 3),
 	(4, 'FranÃ§ais', '100', 120, '0', 2, 3),
 	(5, 'MathÃ©matique', '100', 15, '0', 2, 3),
-	(6, 'Science', '100', 15, '0', 2, 3);
+	(6, 'Science', '100', 15, '0', 2, 3),
+	(7, 'Dessin Sc', '50', 12, '0', 3, 3);
 /*!40000 ALTER TABLE `cours` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.eleve
@@ -186,6 +188,7 @@ CREATE TABLE IF NOT EXISTS `eleve` (
   `ECOLE_ORIGINE` varchar(60) DEFAULT NULL,
   `ACCESS` enum('0','1') DEFAULT NULL,
   `DATEINS` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `IMAGE` varchar(250) DEFAULT NULL,
   `IDCLA` int(11) DEFAULT NULL,
   `IDAS` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
@@ -193,16 +196,17 @@ CREATE TABLE IF NOT EXISTS `eleve` (
   KEY `IDAS` (`IDAS`),
   CONSTRAINT `eleve_ibfk_1` FOREIGN KEY (`IDCLA`) REFERENCES `classe` (`IDCLA`),
   CONSTRAINT `eleve_ibfk_2` FOREIGN KEY (`IDAS`) REFERENCES `asco` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.eleve: ~5 rows (approximately)
+-- Dumping data for table schoolline.eleve: ~6 rows (approximately)
 /*!40000 ALTER TABLE `eleve` DISABLE KEYS */;
-INSERT INTO `eleve` (`ID`, `MATRICULE`, `NOM`, `PRENOM`, `EMAIL`, `SEXE`, `TEL`, `DOB`, `ECOLE_ORIGINE`, `ACCESS`, `DATEINS`, `IDCLA`, `IDAS`) VALUES
-	(1, 'EL-30972648', 'Adela ', 'Masupa', 'ademas@gmail.com', 'F', '9841984999', '2022-07-28', 'IMU', '1', '2022-07-28 15:48:57', 1, 3),
-	(2, 'EL-87106259', 'Saleh Matenga', 'Jean-Paul', 'ademas@gmail.com', 'M', '9841984999', '2011-07-28', 'IMU', '1', '2022-07-28 15:50:56', 2, 3),
-	(3, 'EL-92745106', 'Bandyayera ', 'Didier', 'ademas@gmail.com', 'M', '9841984999', '2022-07-29', 'IMU', '1', '2022-07-28 17:12:05', 2, 3),
-	(4, 'EL-80461392', 'Nshime', 'Carel', 'ademas@gmail.com', 'M', '9841984999', '2000-07-28', 'IMU', '1', '2022-07-28 18:41:08', 2, 3),
-	(5, 'EL-09732841', 'Paul', 'Magarama', '', 'M', '', '2022-07-10', '', '1', '2022-07-29 17:53:28', 2, 3);
+INSERT INTO `eleve` (`ID`, `MATRICULE`, `NOM`, `PRENOM`, `EMAIL`, `SEXE`, `TEL`, `DOB`, `ECOLE_ORIGINE`, `ACCESS`, `DATEINS`, `IMAGE`, `IDCLA`, `IDAS`) VALUES
+	(1, 'EL-30972648', 'Adela ', 'Masupa', 'ademas@gmail.com', 'F', '9841984999', '2022-07-28', 'IMU', '1', '2022-09-10 23:24:39', '../../Public/Images/eleve/IMG_5161.JPG', 1, 3),
+	(2, 'EL-87106259', 'Saleh Matenga', 'Jean-Paul', 'ademas@gmail.com', 'M', '9841984999', '2011-07-28', 'IMU', '1', '2022-09-10 22:56:29', '../../Public/Images/eleve/IMG_5170.JPG', 2, 3),
+	(3, 'EL-92745106', 'Bandyayera ', 'Didier', 'ademas@gmail.com', 'M', '9841984999', '2022-07-29', 'IMU', '1', '2022-09-10 23:02:10', '../../Public/Images/eleve/IMG_5190.JPG', 2, 3),
+	(4, 'EL-80461392', 'Nshime', 'Carel', 'ademas@gmail.com', 'M', '9841984999', '2000-07-28', 'IMU', '0', '2022-09-10 17:03:13', NULL, 2, 3),
+	(5, 'EL-09732841', 'Paul', 'Magarama', '', 'M', '', '2022-07-10', '', '1', '2022-09-10 23:00:49', '../../Public/Images/eleve/IMG_E4689.JPG', 2, 3),
+	(6, 'EL-96452813', 'Bushole', 'Kebano', '', 'M', 'Bwiza', '2002-10-10', 'Aucun', '0', '2022-09-10 07:09:00', NULL, 3, 3);
 /*!40000 ALTER TABLE `eleve` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.eleveinsc
@@ -216,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `eleveinsc` (
   CONSTRAINT `eleveinsc_ibfk_1` FOREIGN KEY (`IDEL`) REFERENCES `eleve` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.eleveinsc: ~5 rows (approximately)
+-- Dumping data for table schoolline.eleveinsc: ~4 rows (approximately)
 /*!40000 ALTER TABLE `eleveinsc` DISABLE KEYS */;
 INSERT INTO `eleveinsc` (`ID`, `MONTANT`, `IDEL`, `DATEINS`) VALUES
 	(2, 15, 1, '2022-07-28 01:07:00'),
@@ -225,6 +229,24 @@ INSERT INTO `eleveinsc` (`ID`, `MONTANT`, `IDEL`, `DATEINS`) VALUES
 	(5, 15, 4, '2022-07-28 04:07:00'),
 	(8, 15, 5, '2022-07-29 03:07:00');
 /*!40000 ALTER TABLE `eleveinsc` ENABLE KEYS */;
+
+-- Dumping structure for table schoolline.elevetuteur
+CREATE TABLE IF NOT EXISTS `elevetuteur` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `IDT` int(11) DEFAULT NULL,
+  `IDE` int(11) DEFAULT NULL,
+  `LIEN` varchar(50) DEFAULT NULL,
+  `DATEINS` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `IDT` (`IDT`),
+  KEY `IDE` (`IDE`),
+  CONSTRAINT `elevetuteur_ibfk_1` FOREIGN KEY (`IDT`) REFERENCES `tuteur` (`ID`),
+  CONSTRAINT `elevetuteur_ibfk_2` FOREIGN KEY (`IDE`) REFERENCES `eleve` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table schoolline.elevetuteur: ~0 rows (approximately)
+/*!40000 ALTER TABLE `elevetuteur` DISABLE KEYS */;
+/*!40000 ALTER TABLE `elevetuteur` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.encodeur
 CREATE TABLE IF NOT EXISTS `encodeur` (
@@ -260,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `fs` (
   CONSTRAINT `fs_ibfk_2` FOREIGN KEY (`IDCLA`) REFERENCES `classe` (`IDCLA`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.fs: ~2 rows (approximately)
+-- Dumping data for table schoolline.fs: ~1 rows (approximately)
 /*!40000 ALTER TABLE `fs` DISABLE KEYS */;
 INSERT INTO `fs` (`IDFS`, `MONTANT`, `ACCESS`, `IDCLA`, `IDAA`) VALUES
 	(1, '280', '0', 1, 3),
@@ -315,9 +337,10 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `IDEL` int(11) NOT NULL,
   `IDC` int(11) NOT NULL,
   `IDPER` int(11) NOT NULL,
-  `NOTES` double NOT NULL,
+  `NOTES` varchar(50) DEFAULT '0',
   `NOTEDEM` int(11) NOT NULL DEFAULT '0',
-  `TYPE` enum('Interro','Examen','Devoir') DEFAULT NULL,
+  `DATEN` date DEFAULT NULL,
+  `CODEMOD` varchar(50) DEFAULT NULL,
   `DATEAJ` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`) USING BTREE,
   KEY `IDEL` (`IDEL`),
@@ -330,11 +353,11 @@ CREATE TABLE IF NOT EXISTS `notes` (
 
 -- Dumping data for table schoolline.notes: ~4 rows (approximately)
 /*!40000 ALTER TABLE `notes` DISABLE KEYS */;
-INSERT INTO `notes` (`ID`, `IDEL`, `IDC`, `IDPER`, `NOTES`, `NOTEDEM`, `TYPE`, `DATEAJ`) VALUES
-	(1, 5, 2, 1, 7, 10, 'Interro', '2022-07-31 23:30:20'),
-	(2, 5, 3, 1, 3, 10, 'Interro', '2022-07-31 23:34:25'),
-	(3, 5, 4, 1, 6, 10, 'Interro', '2022-07-31 23:35:31'),
-	(4, 5, 5, 1, 4, 10, 'Interro', '2022-07-31 23:36:04');
+INSERT INTO `notes` (`ID`, `IDEL`, `IDC`, `IDPER`, `NOTES`, `NOTEDEM`, `DATEN`, `CODEMOD`, `DATEAJ`) VALUES
+	(1, 2, 3, 1, '6', 10, '2022-09-10', 'BNL2F456', '2022-09-11 04:35:24'),
+	(2, 3, 3, 1, '10', 10, '2022-09-10', 'BNL2F456', '2022-09-11 04:35:24'),
+	(3, 5, 3, 1, '5', 10, '2022-09-10', 'BNL2F456', '2022-09-11 04:35:24'),
+	(4, 1, 1, 1, '8', 10, '2022-09-10', 'UDQPER8M', '2022-09-11 04:36:26');
 /*!40000 ALTER TABLE `notes` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.options
@@ -358,6 +381,26 @@ INSERT INTO `options` (`IDOPT`, `OPT`, `ACCESS`, `IDSECT`) VALUES
 	(5, 'Administration', '1', 3),
 	(6, 'Info', '1', 3);
 /*!40000 ALTER TABLE `options` ENABLE KEYS */;
+
+-- Dumping structure for table schoolline.parents
+CREATE TABLE IF NOT EXISTS `parents` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `PERE` varchar(60) DEFAULT NULL,
+  `TELP` varchar(20) DEFAULT NULL,
+  `PROFP` varchar(20) DEFAULT NULL,
+  `MERE` varchar(60) DEFAULT NULL,
+  `TELM` varchar(20) DEFAULT NULL,
+  `PROFM` varchar(20) DEFAULT NULL,
+  `DATEINS` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `IDEL` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `IDEL` (`IDEL`),
+  CONSTRAINT `parents_ibfk_1` FOREIGN KEY (`IDEL`) REFERENCES `eleve` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table schoolline.parents: ~0 rows (approximately)
+/*!40000 ALTER TABLE `parents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `parents` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.periode
 CREATE TABLE IF NOT EXISTS `periode` (
@@ -437,7 +480,8 @@ INSERT INTO `profcours` (`IDP`, `IDCLA`, `IDCO`, `IDAS`, `ACCESS`, `DATEINS`) VA
 	(6, 2, 2, 3, '1', '2022-07-31 08:07:36'),
 	(6, 2, 3, 3, '1', '2022-07-31 08:07:13'),
 	(6, 2, 4, 3, '1', '2022-07-31 08:07:20'),
-	(6, 2, 6, 3, '1', '2022-07-31 08:07:06');
+	(6, 2, 6, 3, '1', '2022-07-31 08:07:06'),
+	(8, 3, 7, 3, '1', '2022-08-06 12:08:56');
 /*!40000 ALTER TABLE `profcours` ENABLE KEYS */;
 
 -- Dumping structure for table schoolline.section
@@ -448,7 +492,7 @@ CREATE TABLE IF NOT EXISTS `section` (
   PRIMARY KEY (`IDSECT`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Dumping data for table schoolline.section: ~5 rows (approximately)
+-- Dumping data for table schoolline.section: ~3 rows (approximately)
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
 INSERT INTO `section` (`IDSECT`, `SECTION`, `ACCESS`) VALUES
 	(1, 'LittÃ©raire', '1'),
@@ -490,6 +534,20 @@ INSERT INTO `sortie` (`IDS`, `CON`, `DES`, `DAT`, `NIV`) VALUES
 	(3, 'mkjfdhbikjds', 'yg8iuysgoius', '2020-06-29', 6),
 	(4, 'TYU6TRU', 'RURUU', '2020-06-27', 12);
 /*!40000 ALTER TABLE `sortie` ENABLE KEYS */;
+
+-- Dumping structure for table schoolline.tuteur
+CREATE TABLE IF NOT EXISTS `tuteur` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NOMS` varchar(20) DEFAULT NULL,
+  `TEL` varchar(60) DEFAULT NULL,
+  `PROF` varchar(20) DEFAULT NULL,
+  `DATEINS` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table schoolline.tuteur: ~0 rows (approximately)
+/*!40000 ALTER TABLE `tuteur` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tuteur` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

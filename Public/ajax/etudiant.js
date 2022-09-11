@@ -69,15 +69,14 @@ $(document).ready(function () {
     });
   });
 
-  $(document).on('click','.valider',function () {
+  $(document).on('click','.validate',function () {
     $.ajax({
-      url: "Public/script/addelevenotesi.php",
+      url: "Public/script/addelevenotes.php",
       method: "POST",
-      data: $("#formnotesi").serialize(),
+      data: $("#formnotes").serialize(),
       success: function (donnees) {
         $('#message').html(donnees).slideDown();
-        $("#NotesInd").modal("hide");        
-        setInterval(refreshPage, 1000);
+        // setInterval(refreshPage, 1000);
       }
     });
     return false;

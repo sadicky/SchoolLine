@@ -1,3 +1,4 @@
+<?php  ?>
 <html lang="fr">
 <meta charset='utf-8'>
 	<nav class="navbar navbar-default navbar-fixed-top sidebarNavigation" data-sidebarClass="navbar-inverse">  
@@ -12,16 +13,18 @@
     </div> 
     <div class="collapse navbar-collapse" id="myNavbar">  
     <ul class="nav navbar-nav">  
-      <li class="active"><a href="#">Accueil</a></li>  
+      <li class="active"><a href="index.php?page=accueilEleve">Accueil</a></li>  
       <li><a href="#">Mes Paiements</a></li>
       <li><a href="#">Communiqués<span class="badge label-danger">5</span></a></li>  
       <li><a href="#">Remarques</a></li>  
       <li><a href="#">Mes Absences</a></li> 
     </ul> 
 	<ul class="nav navbar-nav navbar-right">  
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Noms Eleve</a></li>  
-      <li><a href="index.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>  
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span>
+       <?php  echo $_SESSION['NOM'].' '.$_SESSION['PRENOM'];  ?></a></li>  
+      <li><a href="index.php?page=logout"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>  
     </ul>
     </div>   
   </div>  
 </nav>  
+<?php  ?>

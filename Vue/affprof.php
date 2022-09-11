@@ -28,7 +28,7 @@ include 'Public/includes/header.php'; ?>
 					<tbody>
 						<?php
 						foreach ($getP as $value) {
-							echo "<tr><td><b><a href='index.php?page=profdet&id=". $value->ID. "' > " . $value->MATRICULE . "</b></a></td>";
+							echo "<tr><td><b><a href='index.php?page=profdet&id=". $value->MATRICULE. "' > " . $value->MATRICULE . "</b></a></td>";
 							echo "<td><b><a href='index.php?page=profdet&id=". $value->ID. "' >" . $value->NOMS . "</b></a></td>";
 							echo "<td><b>" . $value->SEXE . "</b></td>";
 							echo "<td><b>" . $value->NIVEAU . "</b></td>";

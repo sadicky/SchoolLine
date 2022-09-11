@@ -59,19 +59,4 @@
 <?php
 include_once 'Public/modals/addopt.php';?>
 
-<script>
-		$(document).ready(function(){
-		    $('[data-toggle="tooltip"]').tooltip();
-		});
-
-		$(document).ready(function(){
-		  $("#myInput").on("keyup", function() {
-		    var value = $(this).val().toLowerCase();
-		    $(".myTable tr").filter(function() {
-		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-		    });
-		  });
-		});
-	</script>
-
 <script type="text/javascript" src="Public/ajax/option.js"></script>

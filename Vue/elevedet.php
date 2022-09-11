@@ -145,6 +145,7 @@ include 'Public/includes/header.php';
 												<th>Année Scolaire</th>
 												<th>Mes paiements</th>
 												<th>Mes Résultats</th>
+												<th>Bulletin</th>
 											</thead>
 											<tbody>
 												<td><?= $getE->MATRICULE ?></td>
@@ -157,6 +158,9 @@ include 'Public/includes/header.php';
 												</td>
 												<td>
 													<a href="#" id='<?= $getE->ID ?>' class="btn btn-block btn-xs btn-primary resultats">Résultats</a>
+												</td>
+												<td>
+													<a href="#" id='<?= $getE->ID ?>' class="btn btn-block btn-xs btn-primary resultats">générer</a>
 												</td>
 											</tbody>
 									</table>

@@ -9,7 +9,8 @@ $getC = new Cours();
 $id = $_POST['id'];
 $getN = $notes->getSemestre();
 $getInsc = $getEleve->getEleveIns($id);
-$getEId = $getEleve->getEleveId($id);
+$getEId = $getEleve->getEleveId2($id);
+
 $idclasse=$getEId->IDCLA;
 $getCC = $getC->getCoursClasse($idclasse);
 // var_dump($getCC);

@@ -5,26 +5,15 @@ require_once("connexion.php");
         public $aa;
         public $idaa;
 
-        //ajouter une annee
-        public function setNotes($idEl,$idCours,$idPer,$notes,$noted,$type){
+        //ajouter une note
+        public function setNotes($idEl,$idCours,$idPer,$notes,$noted,$daten,$codemod){
         $db = getconnection();
-        $add = $db->prepare("INSERT INTO notes(IDEL,IDC,IDPER,NOTES,NOTEDEM,TYPE) VALUES (?,?,?,?,?,?)");
-        $addline = $add->execute(array($idEl,$idCours,$idPer,$notes,$noted,$type)) or die(print_r($add->errorInfo()));
+        $add = $db->prepare("INSERT INTO notes(IDEL,IDC,IDPER,NOTES,NOTEDEM,DATEN,CODEMOD) VALUES (?,?,?,?,?,?,?)");
+        $addline = $add->execute(array($idEl,$idCours,$idPer,$notes,$noted,$daten,$codemod)) or die(print_r($add->errorInfo()));
         return $addline;
         }
 
         //afficher toutes les annees
-        public function getNotes(){
-        $db = getconnection();
-        $all = $db->prepare("SELECT * FROM `asco` group by ID DESC");
-        $all->execute();
-        $tb = array();
-        while($data = $all->fetchObject())
-        {
-            $tb[] = $data;
-        }
-        return $tb;
-        }
 
        public function getNotesPeriode($id,$idper)
           {
@@ -44,16 +33,14 @@ require_once("connexion.php");
     
     public function getSemestre()
     {
-  $db = getConnection();
-  $matP = $db->prepare("SELECT * FROM `semestre` ");
-  $matP->execute();
-  $res = array();
-  while($data = $matP->fetchObject())
-  {
-      $res[] = $data;
-  }
-  return $res;
-}
+        $db = getConnection();
+        $matP = $db->prepare("SELECT * FROM `semestre` ");
+        $matP->execute();
+        $res = array();
+        while($data = $matP->fetchObject())
+        {
+            $res[] = $data;
+        }
+        return $res;
+        }
     }
-
-?>

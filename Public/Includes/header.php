@@ -9,6 +9,7 @@
       <link rel="shortcut icon" href="Public/Images/logo.jpg" type="image/x-icon">
       <!-- css -->
       <link rel="stylesheet" href="Public/Bootstrap-3/css/bootstrap.css">
+      <link rel="stylesheet" href="Public/Bootstrap-3/assets/font-awesome/css/font-awesome.min.css">
 
       <!-- DataTables CSS -->
       <link href="Public/Bootstrap-3/css/dataTables/dataTables.bootstrap.css" rel="stylesheet">

@@ -1,13 +1,15 @@
 <?php
 
-use Twilio\Rest\Trusthub\V1\CustomerProfilesPage;
 
 	function login(){
-	session_destroy();
-	include('model/functions.php');
 	include('vue/login.php');
 }
+
+function logout(){
+	include('vue/logout.php');
+}
 function home(){
+	require_once('Model/auth.php');
 	require_once('Model/fs.class.php');
 	require_once('Model/section.class.php');
 	require_once('Model/option.class.php');
@@ -30,7 +32,7 @@ function home(){
 	$getC = $getCla->getClasses();
 	$getF = $getFs->getsFS();
 	$getAa = $getAa->getAllAA();
-	include('vue/home.php');
+	include('vue/public/home.php');
 }
 	function accueilAdmin(){
 		require_once('Model/aa.class.php');
@@ -61,9 +63,18 @@ function licence(){
 	include('vue/licence.php');
 }
 	function accueilEleve(){
-	session_destroy();
-	include('model/functions.php');
-	include('vue/accueilEleve.php');
+		require_once('Model/section.class.php');		
+		require_once('Model/classe.class.php');
+		require_once('Model/eleve.class.php');
+		@$id=$_SESSION['MAT'];
+		$getC= new Classe();
+
+		$getEleve = new Eleve();
+		$getInsc = $getEleve->getEleveIns($id);	
+
+		$getO= new Section();
+			$getO = $getO->getSectionActiv();
+	include('Vue/Eleve/accueilEleve.php');
 }
 	function accueilBibliotheque(){
 	session_destroy();
@@ -81,18 +92,51 @@ function licence(){
 	include('vue/absence.php');
 }
 	function Notes(){
-	session_destroy();
-	include('model/functions.php');
-	include('vue/notes.php');
+		require_once('Model/fs.class.php');
+		require_once('Model/section.class.php');
+		require_once('Model/option.class.php');
+		require_once('Model/aa.class.php');
+		require_once('Model/classe.class.php');
+		require_once('Model/prof.class.php');
+		require_once('Model/eleve.class.php');
+		require_once 'Model/notes.class.php';
+		require_once 'Model/cours.class.php';
+		$getAa= new AA();
+		$getC= new Classe();
+		$getO= new Opt();
+		$getFs= new FS();
+		$getS = new Section();
+		$getP= new Prof();
+		$notes = new Note();
+		$getCo = new Cours();
+		$getN = $notes->getSemestre();
+		
+		
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
+
+		if(isset($_POST['valider'])){
+			$idc=$_POST['niv'];
+			$idas=$_POST['aa'];
+			$getEC = $getEleve->getElevesClasse($idc,$idas);
+		}
+		
+		$getAa = $getAa->getAllAA();
+		$getP = $getP->getProfs();
+		$getO = $getO->getOptionActiv();	
+		$getFs = $getFs->getsFS();
+		$getS = $getS->getSectionActiv();
+		$getC = $getC->getClasses();
+		include('Vue/notesi.php');
+		
 }
 function non_allow(){
-	include('location_model/functions.php');
-	include('location_view/non.php');
+	include('Vue/non.php');
 }
 function Cantine(){
 	session_destroy();
 	include('model/functions.php');
-	include('vue/cantine.php');
+	include('Vue/cantine.php');
 }
 	function accueilEncodeur(){
 	session_destroy();
@@ -616,8 +660,56 @@ function Cantine(){
 			$getPi = $getProf->getProfId($id);
 			$getPc = $getProf->getProfCoursId($id);
 			$getO = $getO->getSectionActiv();
-		include('vue/elevedet.php');
+		include('Vue/elevedet.php');
 	}
+	function detailElev(){
+		require_once('Model/section.class.php');		
+		require_once('Model/classe.class.php');
+		require_once('Model/eleve.class.php');		
+		require_once('Model/prof.class.php');
+		$getProf= new Prof();
+		$id=$_SESSION['MAT'];
+		$getP = $getProf->getProfsActif();
+		$getC= new Classe();
+		$getC = $getC->getClasses();
 
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
+		$getInsc = $getEleve->getEleveIns($id);		
+		$getE = $getEleve->getEleveId($id);	
 
-?>
+		$getO= new Section();
+			$getPi = $getProf->getProfId($id);
+			$getPc = $getProf->getProfCoursId($id);
+			$getO = $getO->getSectionActiv();
+		include('Vue/Eleve/detailEleve.php');
+	}
+	
+	function noteElev(){
+		require_once('Model/fs.class.php');
+		require_once('Model/section.class.php');
+		require_once('Model/option.class.php');
+		require_once('Model/aa.class.php');
+		require_once('Model/classe.class.php');
+		require_once('Model/prof.class.php');
+		require_once('Model/eleve.class.php');
+		require_once 'Model/notes.class.php';
+		require_once 'Model/cours.class.php';
+		$id=$_SESSION['MAT'];
+		$getAa= new AA();
+		$getC= new Classe();
+		$getO= new Opt();
+		$getFs= new FS();
+		$getS = new Section();
+		$getP= new Prof();
+		$notes = new Note();
+		$getCo = new Cours();
+		$getN = $notes->getSemestre();
+		
+		
+		$getEleve = new Eleve();
+		$getEA = $getEleve->getElevesAdmis();
+		
+		$getInsc = $getEleve->getEleveIns($id);	
+		include('Vue/Eleve/noteEleve.php');
+	}

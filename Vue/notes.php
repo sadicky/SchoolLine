@@ -1,17 +1,10 @@
-<?php include 'public/includes/header.php';?>
+<?php $title="Fiche de cotes";
+ include 'public/includes/header.php';
+ ?>
     <body > 
     <div class="row" style="padding-top: 60px;margin: 8px;"> 
-      <?php include 'public/includes/menuadmin.php';?>  
-        <div class="col-sm-2">
-            <ul class="list-group">
-            <li class="list-group-item"><span class="badge">12</span> Etudiants Admis</li>
-            <li class="list-group-item"><span class="badge">5</span> Garçons</li>
-            <li class="list-group-item"><span class="badge">3</span> Filles</li>
-            <li class="list-group-item"><span class="badge">12</span> Auditoires</li>
-            <li class="list-group-item"><span class="badge">5</span> Profs</li>
-            <li class="list-group-item"><span class="badge">0 $</span> Caisse Aujourd'hui</li>
-         </ul>
-        </div>
+      <?php include 'public/includes/menuadmin.php';			
+		include 'public/includes/liste.php';?>  
         <div class="row">
           <div class="col-sm-7">
           <h3>Ajout Notes</h3>

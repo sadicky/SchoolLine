@@ -47,7 +47,7 @@ Class Eleve
         classe.CLASSE,options.OPT,section.SECTION,asco.AS,eleve.TEL as TEL,eleve.DOB as DOB, eleveinsc.DATEINS as DATEINS,eleveinsc.MONTANT as MONTANT
          FROM eleve,asco,classe,options,section,eleveinsc
         WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
-        AND options.IDSECT=section.IDSECT and eleve.ID=eleveinsc.IDEL AND eleve.ID=? LIMIT 1");
+        AND options.IDSECT=section.IDSECT and eleve.ID=eleveinsc.IDEL AND eleve.MATRICULE=? LIMIT 1");
         $matP->execute(array($id));
         $res = $matP->fetchObject();
         return $res;
@@ -57,9 +57,9 @@ Class Eleve
     public function getEleves()
     {
         $db = getConnection();
-        $statement = $db->prepare("SELECT eleve.ID as ID, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
+        $statement = $db->prepare("SELECT eleve.ID as ID, eleve.ACCESS, eleve.IMAGE, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
         classe.CLASSE,options.OPT,section.SECTION,asco.AS FROM eleve,asco,classe,options,section
-        WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
+        WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID  and classe.IDOPT=options.IDOPT
         AND options.IDSECT=section.IDSECT");
         $statement->execute();
         $tbP = array();
@@ -71,7 +71,7 @@ Class Eleve
     public function getElevesAdmis()
     {
         $db = getConnection();
-        $statement = $db->prepare("SELECT eleve.ID as ID, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
+        $statement = $db->prepare("SELECT eleve.ID as ID,eleve.IMAGE,  eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
         classe.CLASSE,options.OPT,section.SECTION,asco.AS FROM eleve,asco,classe,options,section
         WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
         AND options.IDSECT=section.IDSECT and eleve.ACCESS='1'");
@@ -82,17 +82,44 @@ Class Eleve
         }
          return $tbP;
     }
-  
+  //par matr
     public function getEleveId($id)
     {
         $db = getConnection();
-        $matP = $db->prepare("SELECT eleve.ID as ID,classe.IDCLA as IDCLA, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
+        $matP = $db->prepare("SELECT eleve.ID as ID,eleve.IMAGE, classe.IDCLA as IDCLA, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
         classe.CLASSE,options.OPT,section.SECTION,asco.AS,eleve.TEL as TEL,eleve.DOB as DOB FROM eleve,asco,classe,options,section
         WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
         AND options.IDSECT=section.IDSECT AND eleve.MATRICULE=? LIMIT 1");
         $matP->execute(array($id));
         $res = $matP->fetchObject();
         return $res;
+    }
+    //par ID
+    public function getEleveId2($id)
+    {
+        $db = getConnection();
+        $matP = $db->prepare("SELECT eleve.ID as ID,classe.IDCLA as IDCLA,eleve.IMAGE,  eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
+        classe.CLASSE,options.OPT,section.SECTION,asco.AS,eleve.TEL as TEL,eleve.DOB as DOB FROM eleve,asco,classe,options,section
+        WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
+        AND options.IDSECT=section.IDSECT AND eleve.ID=? LIMIT 1");
+        $matP->execute(array($id));
+        $res = $matP->fetchObject();
+        return $res;
+    }
+    public function getElevesClasse($idc,$idas)
+    {
+        $db = getConnection();
+        $matP = $db->prepare("SELECT eleve.ID as ID,eleve.IMAGE, classe.IDCLA as IDCLA, eleve.ACCESS, eleve.NOM, eleve.PRENOM, eleve.SEXE,eleve.MATRICULE,
+        classe.CLASSE,options.OPT,section.SECTION,asco.AS
+        FROM eleve,asco,classe,options,section
+        WHERE eleve.IDCLA=classe.IDCLA AND eleve.IDAS=asco.ID and classe.IDOPT=options.IDOPT
+        AND options.IDSECT=section.IDSECT and eleve.ACCESS='1' AND eleve.IDCLA=? AND eleve.IDAS=?");
+        $matP->execute(array($idc,$idas));
+        $tbP = array();
+        while($data =  $matP->fetchObject()){
+            $tbP[] = $data;
+        }
+         return $tbP;
     }
     public function deleteProf($idprof)
     {
