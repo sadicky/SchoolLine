@@ -9,10 +9,9 @@ $prof = new Prof();
  $email=isset($_POST['email'])?$_POST['email']:"";
  $niveau=isset($_POST['niveau'])?$_POST['niveau']:"A2";
  $pwd=isset($_POST['pwd'])?$_POST['pwd']:"";
- $pwd = password_hash($pwd,PASSWORD_BCRYPT);
  $access = 0;
  $add = null;
- $dateins= date('Y-m-d h:m:s');
+ $dateins= date('d-m-Y');
   $add = $prof->setProf($titre,$noms,$email,$sexe,$tel,$dob,$niveau,$access,$pwd,$dateins);
   if(!empty($add)){
 	echo "<span class='alert alert-success alert-lg col-sm-12'>Enregistrement reussi <button type='button' class='close' data-dismiss='alert'>x</button></span>";

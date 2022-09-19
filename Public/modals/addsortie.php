@@ -10,14 +10,8 @@
       </div>
       <div class="modal-body">
 		 <form  method="post" id='formulaire' enctype="multipart/form-data">
-		<div class="form-group">
-		<select name="aa" id="aa" class='form-control'>
-			<option value=''>Choisir une Annee Academique</option>
-			<?php foreach ($getAa as $a) {?>
-				<option value='<?=$a->ID?>'><?=$a->AA?></option>				
-			<?php } ?>
-		</select>
-		</div>
+		
+		 <input type="hidden" name="aa" value="<?=$getAs->ID?>" id="aa" class='form-control'>
 		<div class="form-group">
 		<select name="fac" id="fac" class='form-control'>
 			<option value=''>Choisir une Faculte</option>

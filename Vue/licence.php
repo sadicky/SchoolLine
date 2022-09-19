@@ -1,4 +1,5 @@
-<?php $title='Licence'; include 'public/includes/header.php';?>
+
+	<?php $title='Licence'; include 'public/includes/header.php';?>
     <body > 
 		<div class="row">  
 			</div><br>

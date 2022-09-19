@@ -13,9 +13,17 @@ if(isset($_GET['page'])){
 	{
 		logout();
 	}
+	else if($_GET['page']=='logout_a')
+	{
+		logout_admin();
+	}
 	else if($_GET['page']=='non')
 	{
 		non_allow();
+	}
+	else if($_GET['page']=='non_a')
+	{
+		non_allow_a();
 	}
 	else if($_GET['page']=='accueilEleve')
 	{
@@ -73,6 +81,14 @@ if(isset($_GET['page'])){
 	{
 		Absence();
 	}
+	else if($_GET['page']=='detAbs')
+	{
+		detAbsence();
+	}
+	else if($_GET['page']=='absEl')
+	{
+		mesAbsences();
+	}
 	else if($_GET['page']=='affcaissier')
 	{
 		affCaissier();
@@ -101,6 +117,10 @@ if(isset($_GET['page'])){
 	{
 		jConge();
 	}
+	else if($_GET['page']=='congesE')
+	{
+		Conge();
+	}
 	else if($_GET['page']=='sorties')
 	{
 		Sorties();
@@ -113,9 +133,9 @@ if(isset($_GET['page'])){
 	{
 		Com();
 	}
-	else if($_GET['page']=='listeeleveclasse')
+	else if($_GET['page']=='bulletin')
 	{
-		listEleveClasse();
+		bulletin();
 	}
 	else if($_GET['page']=='licence')
 	{
@@ -198,6 +218,26 @@ if(isset($_GET['page'])){
 	else if($_GET['page']=='detailElev')
 	{
 		detailElev();
+	}
+	else if($_GET['page']=='camarade')
+	{
+		camarade();
+	}
+	else if($_GET['page']=='mescours')
+	{
+		mesCours();
+	}
+	else if($_GET['page']=='mespaiemenentM')
+	{
+		mespaiemenentM();
+	}
+	else if($_GET['page']=='recouvrement')
+	{
+		recouvrement();
+	}
+	else if($_GET['page']=='horaires')
+	{
+		Horaires();
 	}
 	else{
 		home();

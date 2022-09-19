@@ -3,7 +3,7 @@ require_once('../../Model/eleve.class.php');
 $eleve = new Eleve();
  $id=$_POST['id'];
  $montant=htmlspecialchars(trim(isset($_POST['montant'])))?$_POST['montant']:'';
- $add = null;
+ $add = null;  
  $dateins= date('Y-m-d h:m');
   $add = $eleve->setEleveIns($montant,$id,$dateins);
   if($add){	

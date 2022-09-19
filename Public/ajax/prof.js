@@ -3,31 +3,13 @@ function refreshPage() {
 }
 
 $(document).ready(function () {
-  $("#formulaire").submit(function () {
-    var titre = $("#titre").val();
-    var noms = $("#noms").val();
-    var dob = $("#dob").val();
-    var sexe = $("#sexe").val();
-    var tel = $("#tel").val();
-    var email = $("#email").val();
-    var niveau = $("#niveau").val();
-    var pwd = $("#pwd").val();
+  $(document).on('click','.addprof',function () {
     $.ajax({
       url: "Public/script/addprof.php",
       method: "POST",
-      data: {
-        titre: titre,
-        noms: noms,
-        dob: dob,
-        sexe: sexe,
-        tel: tel,
-        email: email,
-        niveau: niveau,
-        pwd: pwd
-      },
+      data:$("#formulaire").serialize(),
       success: function (donnees) {
         $('#message').html(donnees).slideDown();
-        $("#formulaire")[0].reset();
         $("#ajoutprof").modal("hide");
         setInterval(refreshPage, 1000);
       }

@@ -36,7 +36,8 @@ require_once("connexion.php");
           FROM classe,options,section
            WHERE classe.IDOPT=options.IDOPT
            AND options.IDSECT = section.IDSECT
-           ");
+           and classe.ACCESS='1'
+         ");
         $all->execute();
         $tb = array();
         while($data = $all->fetchObject())

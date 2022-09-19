@@ -67,7 +67,7 @@
       				</select>
       			</div>
 				<div class="form-group"><br>
-					<button type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+					<button type="submit" class="btn btn-info btn-block addprof"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
 				</div>
       		</div>
       	</div>

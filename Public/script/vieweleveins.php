@@ -26,8 +26,8 @@ $getC = $getC->getClasse();
 $getCo = $getCo->getsCours();
 $getAa = $getAa->getAllAA();
 $getAF= $frais->getAFS();
-$getEl = $getE->getEleveId($id);
-// echo ($getEl->ID);
+$getEl = $getE->getEleveId2($id);
+// var_dump($getEl->ID);
 ?>
      
 	 <form  method="post" id='formeleveins' enctype="multipart/form-data">

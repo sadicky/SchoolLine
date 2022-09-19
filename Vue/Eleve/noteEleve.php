@@ -11,7 +11,8 @@ include 'public/includes/header.php'; ?>
 					<div class="row well" style="padding-top: 15px;">
 						<div class="row">
 							<div class="col-md-5">
-								<b class="text-danger">Résultats pour la Classe:<?= $getInsc->CLASSE ?></b><hr>
+								<b class="text-danger">Résultats pour la Classe:<?= $getInsc->CLASSE ?></b>
+								<hr>
 								<form id="formnotesi" class="form-horizontal" method="post">
 									<div class="row">
 										<div class="col-md-12">
@@ -45,12 +46,72 @@ include 'public/includes/header.php'; ?>
 								<hr>
 							</div>
 							<div class="col-md-7">
-								<div class="resp"></div>
+								<?php if (isset($_POST['valider'])) :
+									if ($notesPeriode2 != null) { ?>
+										Résultat du 
+										<b><?= $notesPeriode2->SEMESTRE . ' : ' . $notesPeriode2->PERIODE ?></b>
+										<hr>
+
+									<?php }
+									?>
+
+									<table class="table table-hover table-bordered">
+										<thead>
+											<tr style="text-align: center">
+												<th style="text-align: center">#</th>
+												<th> Cours</th>
+												<th style="text-align: center">Point Obtenu</th>
+												<th style="text-align: center">Demandé</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											// Code for result
+											$totlcount = 0;
+											$totlpos = 0;
+
+											$cnt = 1;
+											// var_dump($notesPeriode);
+											if ($countrow = count($notesPeriode) > 0) {
+												foreach ($notesPeriode as $result) {
+											?>
+													<tr>
+														<th scope="row" style="text-align: center"><?php echo htmlentities($cnt); ?></th>
+														<th><?php echo htmlentities($result->COURS); ?></th>
+														<td style="text-align: center"><?php echo htmlentities($totalmarks = $result->NOTES); ?></td>
+														<td style="text-align: center"><?php echo htmlentities($totalpos = $result->NOTED); ?></td>
+													</tr>
+												<?php
+													$totlcount += $totalmarks;
+													$totlpos += $totalpos;
+													$cnt++;
+												}
+												?>
+												<tr>
+													<th scope="row" colspan="2" style="text-align: center">Total général</th>
+													<td colspan="2" style="text-align: center"><b><?php echo htmlentities($totlcount); ?></b> / <b><?php echo htmlentities($outof = $totlpos); ?></b></td>
+												</tr>
+
+
+											<?php } else { ?><hr>
+												<div class="alert alert-warning left-icon-alert" role="alert">
+													<strong>Désolé!</strong> Résultat indisponible
+												<?php }
+												?>
+												</div>
+
 							</div>
+
+
+
+							</tbody>
+							</table>
+						<?php endif ?>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	</body>
 <?php } else {
@@ -58,4 +119,5 @@ include 'public/includes/header.php'; ?>
 } ?>
 
 <script type="text/javascript" src="Public/ajax/joinnote.js"></script>
+
 </html>

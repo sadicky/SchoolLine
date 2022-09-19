@@ -82,6 +82,20 @@ $(document).ready(function () {
     return false;
   });
 
+  $(document).on('click','.valider',function () {
+    $.ajax({
+      url: "Public/script/addelevenotesi.php",
+      method: "POST",
+      data: $("#formnotesi").serialize(),
+      success: function (donnees) {
+        $('#message').html(donnees).slideDown();
+        $("#NotesInd").modal("hide");        
+        setInterval(refreshPage, 1000);
+      }
+    });
+    return false;
+  });
+
   $('.view_data').click(function(event) {
     event.preventDefault();
     var id = $(this).attr("id");
@@ -116,7 +130,7 @@ $(document).ready(function () {
 
   
   $(document).on('click','.submit',function () {
-    $.ajax({
+    $.ajax({ 
       url: "Public/script/addeleveins.php",
       method: "POST",
       data: $("#formeleveins").serialize(),

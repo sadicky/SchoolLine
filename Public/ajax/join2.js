@@ -9,12 +9,12 @@ $(document).ready(function () {
                 data:'fac='+fac,
                 success:function(d){
                     $('#dep').html(d);
-                    $('#niv').html("<option value=''>Choisir un departement</option>");
+                    $('#niv').html("<option value=''>Choisir une option</option>");
                 }
 
             });
         }else{
-             $('#niv').html("<option value=''>Choisir un departement</option>");
+             $('#niv').html("<option value=''>Choisir une option</option>");
         }
 
     });

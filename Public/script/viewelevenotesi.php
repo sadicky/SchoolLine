@@ -8,7 +8,6 @@ $getEleve = new Eleve();
 $getC = new Cours();
 $id = $_POST['id'];
 $getN = $notes->getSemestre();
-$getInsc = $getEleve->getEleveIns($id);
 $getEId = $getEleve->getEleveId2($id);
 
 $idclasse=$getEId->IDCLA;
@@ -22,7 +21,7 @@ $getCC = $getC->getCoursClasse($idclasse);
 			<div class="col-lg-4">
 				<div class="form-group">
 					<label for="">Semestre</label>
-					<input type="hidden" value="<?= $getInsc->ID; ?>" id="id" name="id">
+					<input type="hidden" value="<?= $getEId->ID; ?>" id="id" name="id">
 					<select id="sem" name="sem" class="form-control select2" required>
 						<option>Choisir un semestre</option>
 						<?php
@@ -54,18 +53,6 @@ $getCC = $getC->getCoursClasse($idclasse);
 			</div>
 			<div class="col-lg-4">
 				<div class="form-group">
-					<label for="">Type</label>
-					<select id="type" name="type" required class="form-control select2">
-						<option value='Devoir'>Devoir</option>
-						<option value='Interro'>Interro</option>
-						<option value='Examen'>Examen</option>
-					</select>
-
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="form-group">
-
 					<label for="">Note demandée</label>
 					<input type="number" id="noted" name="noted" required class="form-control">
 
@@ -78,9 +65,12 @@ $getCC = $getC->getCoursClasse($idclasse);
 
 				</div>
 			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
 					<label for=""></label>
 					<button type="submit" name="valider" class="btn btn-danger btn-block valider">Ajouter note</button>
-				
+				</div>
+			</div>
 		</div>
 	</div>
 </form>

@@ -30,9 +30,19 @@ $(document).ready(function () {
 function refreshPage() {
   location.reload();
 }
-
-  //recharger cette fonction toute les secondes
   
+  $(document).on('click','.validate',function () {
+    $.ajax({
+      url: "Public/script/addmineleve.php",
+      method: "POST",
+      data: $("#payer").serialize(),
+      success: function (donnees) {
+        $('#message').html(donnees).slideDown();
+        setInterval(refreshPage, 1000);
+      }
+    });
+    return false;
+  });
 
 
 

@@ -39,7 +39,7 @@ require_once("connexion.php");
            where cours.IDCLA = classe.IDCLA
            AND classe.IDOPT=options.IDOPT
           AND options.IDSECT = section.IDSECT
-           and cours.IDAA=asco.ID");
+           and cours.IDAA=asco.ID order by classe.CLASSE ");
         $all->execute();
         $tb = array();
         while($data = $all->fetchObject())
@@ -51,10 +51,13 @@ require_once("connexion.php");
         
         public function getCoursClasse($id){
             $db = getconnection();
-            $all = $db->prepare("SELECT cours.IDCO as ID,cours.COURS as COURS
-               from cours,classe,section,options,asco
+            $all = $db->prepare("SELECT section.IDSECT,cours.IDCO as ID,cours.POND,cours.COURS as COURS,prof.NOMS
+               from cours,classe,section,options,asco,prof,profcours
                where cours.IDCLA = classe.IDCLA
                AND classe.IDOPT=options.IDOPT
+              AND prof.ID = profcours.IDP
+              AND profcours.IDCO=cours.IDCO
+              AND profcours.IDCLA=classe.IDCLA
               AND options.IDSECT = section.IDSECT
                and cours.IDAA=asco.ID 
                And classe.IDCLA=?");
@@ -66,6 +69,24 @@ require_once("connexion.php");
             }
             return $tb;
             }
+
+            
+        public function getCoursClasse2($id){
+            $db = getconnection();
+            $all = $db->prepare("SELECT section.IDSECT,cours.IDCO as ID,cours.POND,cours.COURS as COURS,prof.NOMS
+               from cours,classe,section,options,asco,prof,profcours
+               where cours.IDCLA = classe.IDCLA
+               AND classe.IDOPT=options.IDOPT
+              AND prof.ID = profcours.IDP
+              AND profcours.IDCO=cours.IDCO
+              AND profcours.IDCLA=classe.IDCLA
+              AND options.IDSECT = section.IDSECT
+               and cours.IDAA=asco.ID 
+               And classe.IDCLA=?");
+            $all->execute(array($id));
+            $res = $all->fetchObject();
+            return $res;
+        }
   
   
         public function getCoursId($id)
@@ -81,18 +102,20 @@ require_once("connexion.php");
             return $res;
         }
 
+        
+        public function countCours($classe){
+            $db = getConnection();
+            $q= $db->prepare("SELECT SUM(cours.POND) as POND
+            from cours,classe,section,options,asco
+            where cours.IDCLA = classe.IDCLA
+            AND classe.IDOPT=options.IDOPT
+            AND options.IDSECT = section.IDSECT
+            and cours.IDAA=asco.ID 
+            And classe.IDCLA=? and cours.ACCESS='1'");
+            $q->execute(array($classe));
+            $res = $q->fetchObject();
+            return $res;
+        } 
+  
 
-       //  public function activDep($id){
-       //   $db = getConnection();
-       //   $sql =$db->prepare( "UPDATE departement SET ACCESS='1' where IDDep=?");
-       //   $ok = $sql->execute(array($id));
-       //  return $ok;
-       //  }
-
-       //  public function deactivDep($id){
-       //  $db = getConnection();
-       //  $sql =$db->prepare( "UPDATE departement SET ACCESS='0' where IDDep=?");
-       //  $ok = $sql->execute(array($id));
-       //  return $ok;
-       // }
     }

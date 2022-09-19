@@ -25,10 +25,14 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<b><label>Année Scolaire: </label> <span class="text-danger">*</span></b> <select name="aa" id="aa" class='form-control'>
-									<option id="aa" name="aa" value=''>Choisir une Annee Scolaire</option>
-									<?php foreach ($getAa as $a) { ?>
-										<option value='<?= $a->ID ?>'><?= $a->AS ?></option>
+							<input type="hidden" name="aa" value="<?=$getAs->ID?>" id="aa" class='form-control'>
+							</div>
+							<div class="form-group">
+								<b><label>Section: </label> <span class="text-danger">*</span></b>
+								<select name="fac" id="fac" class='form-control'>
+									<option value=''>Choisir une section</option>
+									<?php foreach ($getS as $f) { ?>
+										<option value='<?= $f->IDSECT ?>'><?= $f->SECTION ?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -43,28 +47,27 @@
 								<input class="form-control" placeholder="adresse" type="tel" id="tel" name="tel">
 							</div>
 							<div class="form-group">
-								<b><label>Section: </label> <span class="text-danger">*</span></b>
-								<select name="fac" id="fac" class='form-control'>
-									<option value=''>Choisir une section</option>
-									<?php foreach ($getS as $f) { ?>
-										<option value='<?= $f->IDSECT ?>'><?= $f->SECTION ?></option>
-									<?php } ?>
+								<b><label>Option: </label> <span class="text-danger">*</span></b>
+								<select name="dep" id="dep" class='form-control'>
+									<option value=''>Choisir une option</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<div class="form-group">
-								<b><label>Adresse Mail: </label> <span class="text-danger">*</span></b>
-								<input type="email" class="form-control" placeholder="adresse mail" id="email" name="email">
-							</div>
-							<div class="form-group">
 								<label><b>Provenance: </b></label>
 								<input type="text" class="form-control" placeholder="Ecole de provenance" name="eco" id="eco">
 							</div>
 							<div class="form-group">
-								<b><label>Option: </label> <span class="text-danger">*</span></b>
-								<select name="dep" id="dep" class='form-control'>
-									<option value=''>Choisir une option</option>
+								<b><label>Né(e) à: </label></b>
+								<input type="text" class="form-control" placeholder="Né(e) à" id="email" name="email">
+							</div>
+
+							<div class="form-group">
+								<b><label>Classe: </label> <span class="text-danger">*</span></b>
+
+								<select name="niv" id="niv" class='form-control'>
+									<option value=''>Choisir un Niveau</option>
 								</select>
 							</div>
 						</div>
@@ -82,15 +85,8 @@
 								<b><label>Date de Naissance: </label></b>
 								<input class="form-control" type="date" name="dob" id="dob">
 							</div>
-
 							<div class="form-group">
-								<b><label>Classe: </label> <span class="text-danger">*</span></b>
-
-								<select name="niv" id="niv" class='form-control'>
-									<option value=''>Choisir un Niveau</option>
-								</select>
-							</div>
-							<div class="form-group">
+								<label># </label>
 								<button type="submit" class="btn btn-primary btn-block btn-md">Valider l'inscription</button>
 							</div>
 						</div>

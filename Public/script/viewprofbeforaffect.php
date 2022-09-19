@@ -22,6 +22,7 @@ $getCo = $getCo->getsCours();
 $getAa = $getAa->getAllAA();
 $getPr = $getP->getProfs();
 $getPi = $getP->getProfId($id);
+// var_dump($getPi->ID);
 ?>
 <form method="post" id='formaffcours' enctype="multipart/form-data">
   <input type="hidden" value="<?= $getPi->ID ?>" name="id" id="id" />

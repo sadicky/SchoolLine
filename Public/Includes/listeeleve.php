@@ -9,10 +9,11 @@
 			<div class="panel-body">
 				<ul class="list-group">
 					<li class="list-group-item"><a href="index.php?page=detailElev">Details</a></li>
-					<li class="list-group-item"><a href="">Mes Tuteurs</a></li>
-					<li class="list-group-item"><a href="">Mes Camarades</a></li>
-					<li class="list-group-item"><a href="">Nos Cours</a></li>
+					<li class="list-group-item"><a href="index.php?page=tuteur">Mes Tuteurs</a></li>
+					<li class="list-group-item"><a href="index.php?page=camarade">Mes Camarades</a></li>
+					<li class="list-group-item"><a href="index.php?page=mescours">Nos Cours</a></li>
 					<li class="list-group-item"><a href="index.php?page=noteElev">Mes Resultats</a></li>
+					<li class="list-group-item"><a href="index.php?page=absEl">Mes Absences</a></li>
 				</ul>
 			</div>
 	</div>

@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
             $_SESSION['MAT']=$res['MATRICULE'];
             $_SESSION['NOM']=$res['NOM'];
             $_SESSION['PRENOM']=$res['PRENOM'];
-            $_SESSION['IMAGE']=$res['IMAGE'];
+            $_SESSION['AS']=$res['IDAS'];
             $_SESSION['logged']=true;
             header("location:index.php?page=accueilEleve");
             

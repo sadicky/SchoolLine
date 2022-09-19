@@ -36,7 +36,7 @@ $(document).ready(function () {
 $(document).on("click", ".update", function () {
   var id = $(this).attr("id");
   $.ajax({
-    url: "public/script/affcoursmod.php",
+    url: "Public/script/affcoursmod.php",
     method: "POST",
     data: {
       id: id

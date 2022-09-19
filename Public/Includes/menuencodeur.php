@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button> 
-   <a href="index.php?page=accueilAdmin"><img src="public/images/logo.jpg" width="50px"></a>  
+   <a href="index.php?page=accueilEncodeur"><img src="Public/images/logo.jpg" width="50px"></a>  
     </div> 
     <div class="collapse navbar-collapse" id="myNavbar">   
     <ul class="nav navbar-nav">  
@@ -49,11 +49,12 @@
       </li>  
       <li><a href="#">Communiqués<span class="badge">5</span></a></li>   
       <li><a href="#">PRN</a></li>   
-    </ul>   
+    </ul> 
 	<ul class="nav navbar-nav navbar-right">  
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Noms Encodeur</a></li>  
-      <li><a href="index.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>  
-    </ul>   
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span>
+       <?=$_SESSION['NOMS'] ?></a></li>  
+      <li><a href="index.php?page=logout_a"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>  
+    </ul>  
     </div>
   </div>  
 </nav>  

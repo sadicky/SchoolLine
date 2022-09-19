@@ -13,11 +13,16 @@
     </div> 
     <div class="collapse navbar-collapse" id="myNavbar">  
     <ul class="nav navbar-nav">  
-      <li class="active"><a href="index.php?page=accueilEleve">Accueil</a></li>  
-      <li><a href="#">Mes Paiements</a></li>
+      <li class="active"><a href="index.php?page=accueilEleve">Accueil</a></li>     
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Paiements<span class="caret"></span></a>  
+        <ul class="dropdown-menu">  
+          <li><a href="index.php?page=mespaiemenentM">Minerval</a></li>  
+          <li><a href="#">Autres</a></li> 
+        </ul>  
+      </li>  
       <li><a href="#">Communiqués<span class="badge label-danger">5</span></a></li>  
       <li><a href="#">Remarques</a></li>  
-      <li><a href="#">Mes Absences</a></li> 
+     <li><a href="index.php?page=congesE">Congés</a></li> 
     </ul> 
 	<ul class="nav navbar-nav navbar-right">  
       <li><a href="#"><span class="glyphicon glyphicon-user"></span>

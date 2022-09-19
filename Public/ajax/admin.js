@@ -6,6 +6,7 @@ $(document).ready(function () {
     let tel = $("#tel").val();
     let login = $("#login").val();
     let email = $("#email").val();
+    let pwd = $("#pwd").val();
     let dateins = $("#dateins").val();
 
     $.post(
@@ -15,6 +16,7 @@ $(document).ready(function () {
         email: email,
         dateins: dateins,
         prenom: prenom,
+        pwd:pwd,
         tel: tel
       },
       function (donnees) {

@@ -1,4 +1,12 @@
-﻿<html lang="fr">
+﻿<?php
+		require_once('Model/aa.class.php');
+		$getAa= new AA();		
+
+  $getAs=	$getAa->getAAId($_SESSION['aa']);
+
+?>
+
+<html lang="fr">
 <meta charset='utf-8'>
 <nav class="navbar navbar-default navbar-fixed-top sidebarNavigation" data-sidebarClass="navbar-inverse" style="margin-bottom:90px;">  
   <div class="container-fluid">  
@@ -27,12 +35,19 @@
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Resultats<span class="caret"></span></a>  
         <ul class="dropdown-menu">  
           <li><a href="index.php?page=codmodpoint">Code ModPoints</a></li>  
-          <li><a href="index.php?page=resadmission">Admissions</a></li>  
-          <li><a href="index.php?page=notes">Notes Interros</a></li>   
-          <li><a href="index.php?page=notes">Notes Examens</a></li>  
+          <li><a href="index.php?page=resadmission">Admissions</a></li>    
+          <li><a href="index.php?page=notes">Notes</a></li>  
           <li><a href="index.php?page=resultats">Resultats</a></li>  
         </ul>  
-      </li>    
+      </li>      
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Paiements<span class="caret"></span></a>  
+        <ul class="dropdown-menu">  
+          <li><a href="index.php?page=paiements">Tous les paiements</a></li> 
+          <li><a href="index.php?page=pfa">Minerval</a></li>  
+          <li><a href="#">Autres</a></li> 
+          <li><a href="#">Ré-impression</a></li> 
+        </ul>  
+      </li>     
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Caisse<span class="caret"></span></a>  
         <ul class="dropdown-menu">   
           <li><a href="index.php?page=rapport">Rapport de Caisse</a></li>  
@@ -42,20 +57,20 @@
           <li><a href="index.php?page=rapportso">Rapport Sortie de Caisse</a></li>   
         </ul>  
       </li>     
-      <li><a href="index.php?page=bibliotheque">Bibliothèque</a> </li>  
-      <li><a href="index.php?page=horaires">Horaires</a> </li>       
+      <li><a href="index.php?page=bibliotheque">Bibliothèque</a> </li> 
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestion<span class="caret"></span></a>  
         <ul class="dropdown-menu">  
           <li><a href="index.php?page=absence">Absence</a></li>  
-          <li><a href="index.php?page=frais">Frais Scolaire</a></li>  
+          <li><a href="index.php?page=frais">Minerval</a></li>  
           <li><a href="index.php?page=prime">Prime</a></li>  
-          <li><a href="index.php?page=admission">Admissions</a></li>  
+          <li><a href="index.php?page=recouvrement">Récouvrement</a></li>  
           <li><a href="index.php?page=aa">Annee Scolaire</a></li>  
           <li><a href="index.php?page=cours">Cours</a></li>  
           <li><a href="index.php?page=classe">Classes</a></li>  
           <li><a href="index.php?page=section">Sections</a></li>  
-          <li><a href="index.php?page=option">Options</a></li>  
-          <li><a href="index.php?page=motifP">Motif de Paiement</a></li>   
+          <li><a href="index.php?page=option">Options</a></li>   
+          <li><a href="index.php?page=horaires">Horaires</a> </li>       
+          <li><a href="index.php?page=motifP">Autres Paiements</a></li>   
           <li><a href="index.php?page=cantine">Cantine</a></li>   
           <li><a href="index.php?page=joursconges">Jours-Congés</a></li>    
           <li><a href="index.php?page=conges">Congés</a></li>  
@@ -67,10 +82,8 @@
       </li>   
     </ul>
 	<ul class="nav navbar-nav navbar-right"> 
-      <li><a href="#"><span>AA:</span></a></li>
-      <li><a href="#" data-toggle="modal" data-target="#Ajouter"><b>2019-2020</b></a> </li> 
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Noms Admin</a></li>  
-      <li><a href="index.php"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>  
+      <li><a href="index.php?page=admin"><span class="glyphicon glyphicon-user "></span><?=' '.strtoupper($_SESSION['NOM']).' '.strtoupper($_SESSION['PRENOM'])?> : <b><?=$getAs->AS?></b></a></li>  
+      <li><a href="index.php?page=logout_a"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>  
     </ul>  
     </div>
   </div>  

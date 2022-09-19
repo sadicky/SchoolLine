@@ -3,9 +3,8 @@
 
  $montant=isset($_POST['montant'])?$_POST['montant']:"";
  $aa=isset($_POST['aa'])?$_POST['aa']:"";
- $classe=isset($_POST['niv'])?$_POST['niv']:"";
 $addc = new FS();
-$add = $addc->setFS($montant,$classe,$aa);
+$add = $addc->setFS($montant,$aa);
 if($add){
         echo "<span class='alert alert-success alert-lg col-sm-12'>Enregistrement reussi <button type='button' class='close' data-dismiss='alert'>x</button></span>";
 }

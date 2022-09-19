@@ -29,12 +29,10 @@
 
       <!-- js -->
       <script src="Public/Bootstrap-3/js/jquery.js"></script>
-      <!-- <script src="Public/Bootstrap-3/js/jquery-ui.js"></script> -->
       <script src="Public/Bootstrap-3/js/bootstrap.min.js"></script>
-      <!-- <script src="Public/Bootstrap-3/js/jquery.smartWizard.js"></script> -->
       <script src="Public/Bootstrap-3/js/dataTables/jquery.dataTables.min.js"></script>
       <script src="Public/Bootstrap-3/js/dataTables/dataTables.bootstrap.min.js"></script>
-      <!-- <script src="Public/Bootstrap-3/dialog/js/dialogify.min.js"></script> -->
+      <script src="Public/Bootstrap-3/dialog/js/dialogify.min.js"></script>
 
       <!-- Drop-down -->
       <script src="Public/Bootstrap-3/assets/js/dropdown-menu/dropdown-menu.js"></script>

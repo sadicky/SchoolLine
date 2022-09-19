@@ -9,51 +9,52 @@ require_once("connexion.php");
         public $aa;
 
         //ajouter un fa
-        public function setFS($montant,$classe,$as){
+        public function setFS($montant,$as){
         $db = getconnection();
-        $add = $db->prepare("INSERT INTO fs(MONTANT,IDCLA,IDAA) VALUES(?,?,?)");
-        $addline = $add->execute(array($montant,$classe,$as)) or die(print_r($add->errorInfo()));
+        $add = $db->prepare("INSERT INTO minerval(MONTANT,IDAA) VALUES(?,?)");
+        $addline = $add->execute(array($montant,$as)) or die(print_r($add->errorInfo()));
         return $addline;
         }
+
+        //ajouter un paiement
+        public function setMinerval($eleve,$fs,$classe,$as,$bord,$rec,$montant,$det){
+            $db = getconnection();
+            $add = $db->prepare("INSERT INTO paiementmin (IDEL,IDM,IDCL,IDAS,BORD,REC,MONTANT,DETAIL) VALUES(?,?,?,?,?,?,?,?)");
+            $addline = $add->execute(array($eleve,$fs,$classe,$as,$bord,$rec,$montant,$det)) or die(print_r($add->errorInfo()));
+            return $addline;
+            }
 
         //afficher toutes les fac
         public function getFS(){
         $db = getconnection();
-        $all = $db->prepare("SELECT * from fs");
+        $all = $db->prepare("SELECT minerval.IDM AS ID, minerval.MONTANT,asco.AS
+        from minerval,asco WHERE minerval.IDAA=asco.ID");
         $all->execute();
-        $tb = array();
-        while($data = $all->fetchObject())
-        {
-            $tb[] = $data;
-        }
+        $tb =  $all->fetchObject();
         return $tb;
         }
 
-
-        //afficher toutes les fac
-        public function getsFS(){
-        $db = getconnection();
-         $all = $db->prepare("SELECT fs.IDFS as ID,fs.MONTANT as MONTANT,options.OPT as OPT,
-         section.SECTION as SECTION,asco.AS,classe.CLASSE as CLASSE
-            from fs,classe,section,options,asco
-            where fs.IDCLA = classe.IDCLA
-            AND classe.IDOPT=options.IDOPT
-           AND options.IDSECT = section.IDSECT
-            and fs.IDAA=asco.ID");
-        $all->execute();
-        $tb = array();
-        while($data = $all->fetchObject())
-        {
-            $tb[] = $data;
-        }
-        return $tb;
-        }
+        
+        public function getMinervalClasse($classe){
+            $db = getconnection();
+             $all = $db->prepare("SELECT minerval.IDM as ID,minerval.MONTANT as MONTANT,options.OPT as OPT,
+             section.SECTION as SECTION,asco.AS,classe.CLASSE as CLASSE
+                from minerval,classe,section,options,asco
+                where minerval.IDCL = classe.IDCLA
+                AND classe.IDOPT=options.IDOPT
+               AND options.IDSECT = section.IDSECT
+                and minerval.IDAS=asco.ID and classe.IDCL=?");
+            $all->execute(array($classe));
+            $data = $all->fetchObject();
+            return $data;
+            }
+      
   
   
         public function getFAId($id)
         {
             $db = getConnection();
-            $matP = $db->prepare("SELECT * FROM fa WHERE ID=? LIMIT 1");
+            $matP = $db->prepare("SELECT * FROM minerval WHERE ID=? LIMIT 1");
             $matP->execute(array($id));
             $res = array();
             while($data = $matP->fetchObject())
